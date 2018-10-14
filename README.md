@@ -3,8 +3,8 @@
 This is a sample app of Chrome Custom Tabs.
 https://developer.chrome.com/multidevice/android/customtabs
 
-Chrome Custom Tabs can be called not only on Chrome but also on other browsers.
-This application lists the applications that support Chrome Custom Tabs and can call each.
+Chrome Custom Tabs is supported by not only Chrome but also other browsers.
+This app lists the apps that support Chrome Custom Tabs, and can open url by them as Chrome Custom Tabs.
 
 |![](readme/screenshot1.png)|![](readme/screenshot2.png)|
 |-|-|
