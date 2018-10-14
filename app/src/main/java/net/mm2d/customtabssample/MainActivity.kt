@@ -22,7 +22,6 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         val pm = packageManager
         val browsers = getBrowserPackages(pm)
         return pm.queryIntentServices(Intent(ACTION_CUSTOM_TABS_CONNECTION), 0)
-            .asSequence()
             .mapNotNull { it.serviceInfo }
             .filter { browsers.contains(it.packageName) }
             .map {
@@ -57,21 +55,15 @@ class MainActivity : AppCompatActivity() {
                     it.packageName
                 )
             }
-            .toList()
     }
 
     private fun getBrowserPackages(pm: PackageManager): Set<String> {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com/"))
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
-        val activities = pm.queryIntentActivities(intent, 0)
-        if (activities.isEmpty()) {
-            return emptySet()
-        }
-        val result = HashSet<String>()
-        for (browser in activities) {
-            result.add(browser.activityInfo.packageName)
-        }
-        return result
+        return pm.queryIntentActivities(intent, 0)
+            .mapNotNull { it.activityInfo }
+            .map { it.packageName }
+            .toSet()
     }
 
     private data class PackageInfo(
