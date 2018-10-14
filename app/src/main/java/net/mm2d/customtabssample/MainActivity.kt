@@ -61,8 +61,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com/"))
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
         return pm.queryIntentActivities(intent, 0)
-            .mapNotNull { it.activityInfo }
-            .map { it.packageName }
+            .mapNotNull { it.activityInfo?.packageName }
             .toSet()
     }
 
