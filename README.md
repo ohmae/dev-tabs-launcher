@@ -1,3 +1,6 @@
+[![license](https://img.shields.io/github/license/ohmae/custom-tabs-sample.svg)](./LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/ohmae/custom-tabs-sample.svg)](https://github.com/ohmae/custom-tabs-sample/issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed/ohmae/custom-tabs-sample.svg)](https://github.com/ohmae/custom-tabs-sample/issues?q=is%3Aissue+is%3Aclosed)
 # XXX Custom Tabs Sample
 
 This is a sample app of Chrome Custom Tabs.
