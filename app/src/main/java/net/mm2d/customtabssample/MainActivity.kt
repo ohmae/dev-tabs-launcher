@@ -7,8 +7,12 @@
 
 package net.mm2d.customtabssample
 
+import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
@@ -19,27 +23,79 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var helper: CustomTabsHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        helper = CustomTabsHelper(this)
         toolbar.isFocusable = true
         toolbar.isFocusableInTouchMode = true
         toolbar.requestFocus()
         editText.setText(DEFAULT_URL, TextView.BufferType.NORMAL)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = PackageAdapter(layoutInflater, createPackageList()) {
-            val customTabsIntent = CustomTabsIntent.Builder()
+            startCustomTabs(it.packageName)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        helper.unbind()
+    }
+
+    private fun startCustomTabs(packageName: String) {
+        helper.bind(packageName) {
+            val customTabsIntent = CustomTabsIntent.Builder(it)
                 .setShowTitle(true)
+                .setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                .setCloseButtonIcon(AppCompatResources.getDrawable(this, R.drawable.ic_test)!!.toBitmap())
+//                .enableUrlBarHiding()
+//                .setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left)
+//                .setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right)
+//                .setSecondaryToolbarViews(
+//                    RemoteViews(this.packageName, R.layout.layout_toolbar),
+//                    intArrayOf(R.id.button1, R.id.button2, R.id.button3),
+//                    PendingIntent.getActivity(
+//                        this, 1,
+//                        Intent(this, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT
+//                    )
+//                )
+//                .setActionButton(
+//                    AppCompatResources.getDrawable(this, R.drawable.ic_test)!!.toBitmap(),
+//                    "test",
+//                    PendingIntent.getActivity(
+//                        this, 1,
+//                        Intent(this, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT
+//                    ), true
+//                )
+//                .addDefaultShareMenuItem()
+                .addMenuItem("テスト",
+                    PendingIntent.getActivity(
+                        this, 1,
+                        Intent(this, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT
+                    ))
                 .build()
-            customTabsIntent.intent.setPackage(it.packageName)
+            customTabsIntent.intent.setPackage(packageName)
             customTabsIntent.launchUrl(this, Uri.parse(editText.text.toString()))
+        }
+    }
+
+    private fun Drawable.toBitmap(): Bitmap {
+        if (this is BitmapDrawable) return bitmap
+        return Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888).also {
+            val canvas = Canvas(it)
+            setBounds(0, 0, canvas.width, canvas.height)
+            draw(canvas)
         }
     }
 
@@ -103,7 +159,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val DEFAULT_URL = "https://m.yahoo.co.jp/"
+        private const val DEFAULT_URL = "https://droidkaigi.jp/2019/"
         private const val ACTION_CUSTOM_TABS_CONNECTION =
             "android.support.customtabs.action.CustomTabsService"
     }
