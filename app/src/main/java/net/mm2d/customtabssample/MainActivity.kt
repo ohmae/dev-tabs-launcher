@@ -9,6 +9,7 @@ package net.mm2d.customtabssample
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
@@ -20,6 +21,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.browser.customtabs.CustomTabsService
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -34,12 +36,48 @@ class MainActivity : AppCompatActivity() {
         toolbar.requestFocus()
         editText.setText(DEFAULT_URL, TextView.BufferType.NORMAL)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = PackageAdapter(layoutInflater, createPackageList()) {
-            val customTabsIntent = CustomTabsIntent.Builder()
-                .setShowTitle(true)
-                .build()
-            customTabsIntent.intent.setPackage(it.packageName)
-            customTabsIntent.launchUrl(this, Uri.parse(editText.text.toString()))
+        recyclerView.adapter = PackageAdapter(
+            layoutInflater,
+            createPackageList(),
+            this::onClick,
+            this::onLongClick
+        )
+    }
+
+    private fun onClick(info: PackageInfo) {
+        when {
+            CustomTabsHelper.packageName == null -> {
+                CustomTabsHelper.bind(this, info.packageName)
+                recyclerView.adapter?.notifyDataSetChanged()
+            }
+            CustomTabsHelper.packageName != info.packageName -> {
+                CustomTabsHelper.unbind(this)
+                recyclerView.adapter?.notifyDataSetChanged()
+            }
+            else -> {
+                val customTabsIntent = CustomTabsIntent.Builder()
+                    .setShowTitle(true)
+                    .build()
+                customTabsIntent.intent.setPackage(info.packageName)
+                customTabsIntent.launchUrl(this, Uri.parse(editText.text.toString()))
+            }
+        }
+    }
+
+    private fun onLongClick(info: PackageInfo) {
+        when {
+            CustomTabsHelper.packageName == null -> {
+                CustomTabsHelper.bind(this, info.packageName)
+                recyclerView.adapter?.notifyDataSetChanged()
+            }
+            CustomTabsHelper.packageName != info.packageName -> {
+                CustomTabsHelper.unbind(this)
+                recyclerView.adapter?.notifyDataSetChanged()
+            }
+            else -> {
+                CustomTabsHelper.session?.mayLaunchUrl(Uri.parse(DEFAULT_URL), null,
+                    listOf(Bundle().also { it.putParcelable(CustomTabsService.KEY_URL, Uri.parse(SECOND_URL)) }))
+            }
         }
     }
 
@@ -80,7 +118,8 @@ class MainActivity : AppCompatActivity() {
     private class PackageAdapter(
         private val inflater: LayoutInflater,
         private val list: List<PackageInfo>,
-        private val onClick: (info: PackageInfo) -> Unit
+        private val onClick: (info: PackageInfo) -> Unit,
+        private val onLongClick: (info: PackageInfo) -> Unit
     ) : RecyclerView.Adapter<PackageViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PackageViewHolder =
             PackageViewHolder(inflater.inflate(R.layout.li_package, parent, false))
@@ -89,7 +128,16 @@ class MainActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: PackageViewHolder, position: Int) {
             val info = list[position]
+            if (CustomTabsHelper.packageName == info.packageName) {
+                holder.itemView.setBackgroundColor(COLOR_CONNECTED)
+            } else {
+                holder.itemView.background = null
+            }
             holder.itemView.setOnClickListener { onClick(info) }
+            holder.itemView.setOnLongClickListener {
+                onLongClick(info)
+                true
+            }
             holder.icon.setImageDrawable(info.drawable)
             holder.label.text = info.label
             holder.packageName.text = info.packageName
@@ -104,7 +152,9 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val DEFAULT_URL = "https://m.yahoo.co.jp/"
+        private const val SECOND_URL = "https://droidkaigi.jp/2019/"
         private const val ACTION_CUSTOM_TABS_CONNECTION =
             "android.support.customtabs.action.CustomTabsService"
+        private val COLOR_CONNECTED = Color.argb(32, 0, 0, 255)
     }
 }
