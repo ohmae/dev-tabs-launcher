@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 recyclerView.adapter?.notifyDataSetChanged()
             }
             else -> {
-                val customTabsIntent = CustomTabsIntent.Builder()
+                val customTabsIntent = CustomTabsIntent.Builder(CustomTabsHelper.session)
                     .setShowTitle(true)
                     .build()
                 customTabsIntent.intent.setPackage(info.packageName)
@@ -75,10 +75,16 @@ class MainActivity : AppCompatActivity() {
                 recyclerView.adapter?.notifyDataSetChanged()
             }
             else -> {
-                CustomTabsHelper.session?.mayLaunchUrl(Uri.parse(DEFAULT_URL), null,
-                    listOf(Bundle().also { it.putParcelable(CustomTabsService.KEY_URL, Uri.parse(SECOND_URL)) }))
+                val urlList = listOf(SECOND_URL)
+                    .map { Uri.parse(it) }
+                    .map { makeOtherLikelyBundle(it) }
+                CustomTabsHelper.session?.mayLaunchUrl(Uri.parse(DEFAULT_URL), null, urlList)
             }
         }
+    }
+
+    private fun makeOtherLikelyBundle(uri: Uri): Bundle {
+        return Bundle().also { it.putParcelable(CustomTabsService.KEY_URL, uri) }
     }
 
     private fun createPackageList(): List<PackageInfo> {
@@ -152,7 +158,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val DEFAULT_URL = "https://m.yahoo.co.jp/"
-        private const val SECOND_URL = "https://droidkaigi.jp/2019/"
+        private const val SECOND_URL = "https://news.yahoo.co.jp/"
         private const val ACTION_CUSTOM_TABS_CONNECTION =
             "android.support.customtabs.action.CustomTabsService"
         private val COLOR_CONNECTED = Color.argb(32, 0, 0, 255)
