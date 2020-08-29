@@ -13,6 +13,8 @@
 /.idea/modules.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/.idea/jarRepositories.xml
+/.idea/encodings.xml
 /build
 /captures
 .externalNativeBuild

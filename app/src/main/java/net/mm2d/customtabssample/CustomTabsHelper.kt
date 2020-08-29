@@ -24,17 +24,19 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
     var packageName: String? = null
 
     internal fun bind(context: Context, packageName: String) {
-        val c = context.applicationContext
         if (!bound) {
             this.packageName = packageName
-            bound = CustomTabsClient.bindCustomTabsService(c, packageName, this)
+            bound = CustomTabsClient.bindCustomTabsService(
+                context.applicationContext,
+                packageName,
+                this
+            )
         }
     }
 
     internal fun unbind(context: Context) {
-        val c = context.applicationContext
         if (bound) {
-            c.unbindService(this)
+            context.applicationContext.unbindService(this)
             bound = false
             session = null
             packageName = null
