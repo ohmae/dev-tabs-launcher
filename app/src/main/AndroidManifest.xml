@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="net.mm2d.customtabssample">
 
+    <queries>
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService"/>
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

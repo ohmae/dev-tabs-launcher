@@ -15,28 +15,30 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.*
+import net.mm2d.customtabssample.databinding.ActivityMainBinding
+import net.mm2d.customtabssample.databinding.ItemPackageBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        toolbar.isFocusable = true
-        toolbar.isFocusableInTouchMode = true
-        toolbar.requestFocus()
-        editText.setText(DEFAULT_URL, TextView.BufferType.NORMAL)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = PackageAdapter(
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        binding.toolbar.isFocusable = true
+        binding.toolbar.isFocusableInTouchMode = true
+        binding.toolbar.requestFocus()
+        binding.editText.setText(DEFAULT_URL, TextView.BufferType.NORMAL)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = PackageAdapter(
             layoutInflater,
             createPackageList(),
             this::onClick,
@@ -48,18 +50,18 @@ class MainActivity : AppCompatActivity() {
         when {
             CustomTabsHelper.packageName == null -> {
                 CustomTabsHelper.bind(this, info.packageName)
-                recyclerView.adapter?.notifyDataSetChanged()
+                binding.recyclerView.adapter?.notifyDataSetChanged()
             }
             CustomTabsHelper.packageName != info.packageName -> {
                 CustomTabsHelper.unbind(this)
-                recyclerView.adapter?.notifyDataSetChanged()
+                binding.recyclerView.adapter?.notifyDataSetChanged()
             }
             else -> {
                 val customTabsIntent = CustomTabsIntent.Builder(CustomTabsHelper.session)
                     .setShowTitle(true)
                     .build()
                 customTabsIntent.intent.setPackage(info.packageName)
-                customTabsIntent.launchUrl(this, Uri.parse(editText.text.toString()))
+                customTabsIntent.launchUrl(this, Uri.parse(binding.editText.text.toString()))
             }
         }
     }
@@ -68,11 +70,11 @@ class MainActivity : AppCompatActivity() {
         when {
             CustomTabsHelper.packageName == null -> {
                 CustomTabsHelper.bind(this, info.packageName)
-                recyclerView.adapter?.notifyDataSetChanged()
+                binding.recyclerView.adapter?.notifyDataSetChanged()
             }
             CustomTabsHelper.packageName != info.packageName -> {
                 CustomTabsHelper.unbind(this)
-                recyclerView.adapter?.notifyDataSetChanged()
+                binding.recyclerView.adapter?.notifyDataSetChanged()
             }
             else -> {
                 val urlList = listOf(SECOND_URL)
@@ -128,33 +130,32 @@ class MainActivity : AppCompatActivity() {
         private val onLongClick: (info: PackageInfo) -> Unit
     ) : RecyclerView.Adapter<PackageViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PackageViewHolder =
-            PackageViewHolder(inflater.inflate(R.layout.li_package, parent, false))
+            PackageViewHolder(ItemPackageBinding.inflate(inflater, parent, false))
 
         override fun getItemCount(): Int = list.size
 
         override fun onBindViewHolder(holder: PackageViewHolder, position: Int) {
+            val binding: ItemPackageBinding = holder.binding
             val info = list[position]
             if (CustomTabsHelper.packageName == info.packageName) {
-                holder.itemView.setBackgroundColor(COLOR_CONNECTED)
+                binding.root.setBackgroundColor(COLOR_CONNECTED)
             } else {
-                holder.itemView.background = null
+                binding.root.background = null
             }
-            holder.itemView.setOnClickListener { onClick(info) }
-            holder.itemView.setOnLongClickListener {
+            binding.root.setOnClickListener { onClick(info) }
+            binding.root.setOnLongClickListener {
                 onLongClick(info)
                 true
             }
-            holder.icon.setImageDrawable(info.drawable)
-            holder.label.text = info.label
-            holder.packageName.text = info.packageName
+            binding.icon.setImageDrawable(info.drawable)
+            binding.label.text = info.label
+            binding.packageName.text = info.packageName
         }
     }
 
-    private class PackageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val icon: ImageView = itemView.findViewById(R.id.icon)
-        val label: TextView = itemView.findViewById(R.id.label)
-        val packageName: TextView = itemView.findViewById(R.id.packageName)
-    }
+    private class PackageViewHolder(
+        val binding: ItemPackageBinding
+    ) : RecyclerView.ViewHolder(binding.root)
 
     companion object {
         private const val DEFAULT_URL = "https://m.yahoo.co.jp/"
