@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService
 import androidx.core.content.ContextCompat
@@ -18,6 +19,10 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
     private lateinit var binding: ActivityLauncherBinding
     private var toolbarColor: Int = Color.WHITE
     private var secondaryToolbarColor: Int = Color.WHITE
+    private var navigationBarColor: Int = Color.BLACK
+    private var toolbarColorScheme: Int = Color.BLACK
+    private var secondaryToolbarColorScheme: Int = Color.BLACK
+    private var navigationBarColorScheme: Int = Color.BLACK
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +44,33 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         binding.toolbarColorSample.setOnClickListener {
             ColorChooserDialog.show(this, REQUEST_CODE_TOOLBAR, toolbarColor)
         }
-        setSecondaryToolbarColor(secondaryToolbarColor)
+        binding.secondaryToolbarColorSample.setBackgroundColor(secondaryToolbarColor)
         binding.secondaryToolbarColorSample.setOnClickListener {
             ColorChooserDialog.show(this, REQUEST_CODE_SECONDARY_TOOLBAR, secondaryToolbarColor)
+        }
+        binding.navigationBarColorSample.setBackgroundColor(navigationBarColor)
+        binding.navigationBarColorSample.setOnClickListener {
+            ColorChooserDialog.show(this, REQUEST_CODE_NAVIGATION_BAR, navigationBarColor)
+        }
+        setToolbarColorScheme(toolbarColorScheme)
+        binding.toolbarColorSchemeSample.setOnClickListener {
+            ColorChooserDialog.show(this, REQUEST_CODE_TOOLBAR_SCHEME, toolbarColorScheme)
+        }
+        binding.secondaryToolbarColorSchemeSample.setBackgroundColor(secondaryToolbarColorScheme)
+        binding.secondaryToolbarColorSchemeSample.setOnClickListener {
+            ColorChooserDialog.show(
+                this,
+                REQUEST_CODE_SECONDARY_TOOLBAR_SCHEME,
+                secondaryToolbarColorScheme
+            )
+        }
+        binding.navigationBarColorSchemeSample.setBackgroundColor(navigationBarColorScheme)
+        binding.navigationBarColorSchemeSample.setOnClickListener {
+            ColorChooserDialog.show(
+                this,
+                REQUEST_CODE_NAVIGATION_BAR_SCHEME,
+                navigationBarColorScheme
+            )
         }
         CustomTabsHelper.bind(this, packageName)
     }
@@ -59,6 +88,9 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
             if (binding.secondaryToolbarColor.isChecked) {
                 it.setSecondaryToolbarColor(secondaryToolbarColor)
             }
+            if (binding.navigationBarColor.isChecked) {
+                it.setNavigationBarColor(navigationBarColor)
+            }
             it.setShowTitle(binding.showTitle.isChecked)
             if (binding.urlBarHiding.isChecked) {
                 it.enableUrlBarHiding()
@@ -72,6 +104,22 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
                     }
                 )
             }
+            if (binding.colorSchemeParams.isChecked) {
+                val scheme =
+                    if (binding.colorSchemeParamsLight.isChecked) CustomTabsIntent.COLOR_SCHEME_LIGHT else CustomTabsIntent.COLOR_SCHEME_DARK
+                val params = CustomTabColorSchemeParams.Builder().also { builder ->
+                    if (binding.toolbarColorScheme.isChecked) {
+                        builder.setToolbarColor(toolbarColorScheme)
+                    }
+                    if (binding.secondaryToolbarColorScheme.isChecked) {
+                        builder.setSecondaryToolbarColor(secondaryToolbarColorScheme)
+                    }
+                    if (binding.navigationBarColorScheme.isChecked) {
+                        builder.setNavigationBarColor(navigationBarColorScheme)
+                    }
+                }.build()
+                it.setColorSchemeParams(scheme, params)
+            }
         }.build()
         customTabsIntent.intent.setPackage(intent.getStringExtra(EXTRA_PACKAGE_NAME))
         customTabsIntent.launchUrl(this, Uri.parse(binding.editText.text.toString()))
@@ -79,16 +127,33 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
 
     override fun onColorChooserResult(requestCode: Int, resultCode: Int, color: Int) {
         if (resultCode != RESULT_OK) return
-        if (requestCode == REQUEST_CODE_TOOLBAR) {
-            setToolbarColor(color)
-        } else if (requestCode == REQUEST_CODE_SECONDARY_TOOLBAR) {
-            setSecondaryToolbarColor(color)
+        when (requestCode) {
+            REQUEST_CODE_TOOLBAR ->
+                setToolbarColor(color)
+            REQUEST_CODE_SECONDARY_TOOLBAR -> {
+                secondaryToolbarColor = color
+                binding.secondaryToolbarColorSample.setBackgroundColor(color)
+            }
+            REQUEST_CODE_NAVIGATION_BAR -> {
+                navigationBarColor = color
+                binding.navigationBarColorSample.setBackgroundColor(color)
+            }
+            REQUEST_CODE_TOOLBAR_SCHEME ->
+                setToolbarColorScheme(color)
+            REQUEST_CODE_SECONDARY_TOOLBAR_SCHEME -> {
+                secondaryToolbarColorScheme = color
+                binding.secondaryToolbarColorSchemeSample.setBackgroundColor(color)
+            }
+            REQUEST_CODE_NAVIGATION_BAR_SCHEME -> {
+                navigationBarColorScheme = color
+                binding.navigationBarColorSchemeSample.setBackgroundColor(color)
+            }
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun setToolbarColor(color: Int) {
-        this.toolbarColor = color
+        toolbarColor = color
         binding.toolbarColorSample.setBackgroundColor(color)
         binding.toolbarColorDescription.text =
             "W: " + "%.2f".format(color.contrastToWhiteForeground()) + "\n" +
@@ -96,10 +161,10 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setSecondaryToolbarColor(color: Int) {
-        this.secondaryToolbarColor = color
-        binding.secondaryToolbarColorSample.setBackgroundColor(color)
-        binding.secondaryToolbarColorDescription.text =
+    private fun setToolbarColorScheme(color: Int) {
+        toolbarColorScheme = color
+        binding.toolbarColorSchemeSample.setBackgroundColor(color)
+        binding.toolbarColorSchemeDescription.text =
             "W: " + "%.2f".format(color.contrastToWhiteForeground()) + "\n" +
                     "B: " + "%.2f".format(color.contrastToBlackForeground())
     }
@@ -121,6 +186,10 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
     companion object {
         private const val REQUEST_CODE_TOOLBAR = 1
         private const val REQUEST_CODE_SECONDARY_TOOLBAR = 2
+        private const val REQUEST_CODE_NAVIGATION_BAR = 3
+        private const val REQUEST_CODE_TOOLBAR_SCHEME = 4
+        private const val REQUEST_CODE_SECONDARY_TOOLBAR_SCHEME = 5
+        private const val REQUEST_CODE_NAVIGATION_BAR_SCHEME = 6
         private const val DEFAULT_URL = "https://cs.android.com/"
         private const val SECOND_URL = "https://news.yahoo.co.jp/"
         private const val EXTRA_PACKAGE_NAME = "EXTRA_PACKAGE_NAME"

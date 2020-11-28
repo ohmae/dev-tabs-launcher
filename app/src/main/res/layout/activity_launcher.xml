@@ -86,7 +86,7 @@
                     />
 
                 <FrameLayout
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
@@ -108,7 +108,7 @@
                             android:gravity="center"
                             android:text="A"
                             android:textColor="@android:color/black"
-                            android:textSize="32sp"
+                            android:textSize="24sp"
                             />
 
                         <TextView
@@ -118,7 +118,7 @@
                             android:gravity="center"
                             android:text="A"
                             android:textColor="@android:color/white"
-                            android:textSize="32sp"
+                            android:textSize="24sp"
                             />
                     </LinearLayout>
                 </FrameLayout>
@@ -150,7 +150,7 @@
                     />
 
                 <FrameLayout
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
@@ -172,7 +172,7 @@
                             android:gravity="center"
                             android:text="A"
                             android:textColor="@android:color/black"
-                            android:textSize="32sp"
+                            android:textSize="24sp"
                             />
 
                         <TextView
@@ -182,18 +182,58 @@
                             android:gravity="center"
                             android:text="A"
                             android:textColor="@android:color/white"
-                            android:textSize="32sp"
+                            android:textSize="24sp"
                             />
                     </LinearLayout>
                 </FrameLayout>
 
-                <TextView
-                    android:id="@+id/secondary_toolbar_color_description"
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/navigation_bar_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:checked="false"
+                    android:text="navigationbar"
                     android:textAppearance="@style/caption"
                     />
 
+                <FrameLayout
+                    android:layout_width="60dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@android:color/black"
+                    android:padding="1px"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/navigation_bar_color_sample"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white"
+                        >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="A"
+                            android:textColor="@android:color/black"
+                            android:textSize="24sp"
+                            />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="A"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"
+                            />
+                    </LinearLayout>
+                </FrameLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -273,6 +313,220 @@
                         />
                 </RadioGroup>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/color_scheme_params"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="colorSchemeParams"
+                    android:textAppearance="@style/caption"
+                    />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <RadioButton
+                        android:id="@+id/color_scheme_params_light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="LIGHT"
+                        android:textAppearance="@style/caption"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/color_scheme_params_dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="DARK"
+                        android:textAppearance="@style/caption"
+                        />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/toolbar_color_scheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="toolbar"
+                    android:textAppearance="@style/caption"
+                    />
+
+                <FrameLayout
+                    android:layout_width="60dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@android:color/black"
+                    android:padding="1px"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/toolbar_color_scheme_sample"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white"
+                        >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="A"
+                            android:textColor="@android:color/black"
+                            android:textSize="24sp"
+                            />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="A"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"
+                            />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/toolbar_color_scheme_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/caption"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/secondary_toolbar_color_scheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="secondary\ntoolbar"
+                    android:textAppearance="@style/caption"
+                    />
+
+                <FrameLayout
+                    android:layout_width="60dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@android:color/black"
+                    android:padding="1px"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/secondary_toolbar_color_scheme_sample"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white"
+                        >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="A"
+                            android:textColor="@android:color/black"
+                            android:textSize="24sp"
+                            />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="A"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"
+                            />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/navigation_bar_color_scheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:checked="false"
+                    android:text="navigationbar"
+                    android:textAppearance="@style/caption"
+                    />
+
+                <FrameLayout
+                    android:layout_width="60dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@android:color/black"
+                    android:padding="1px"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/navigation_bar_color_scheme_sample"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white"
+                        >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="A"
+                            android:textColor="@android:color/black"
+                            android:textSize="24sp"
+                            />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="A"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"
+                            />
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
