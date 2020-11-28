@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="URL"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textAppearance="@style/caption"
                     />
 
                 <EditText
@@ -77,12 +77,12 @@
                 >
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/toolbar_color_switch"
+                    android:id="@+id/toolbar_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="toolbar"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textAppearance="@style/caption"
                     />
 
                 <FrameLayout
@@ -127,7 +127,7 @@
                     android:id="@+id/toolbar_color_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textAppearance="@style/caption"
                     />
 
             </LinearLayout>
@@ -141,12 +141,12 @@
                 >
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/secondary_toolbar_color_switch"
+                    android:id="@+id/secondary_toolbar_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="secondary\ntoolbar"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textAppearance="@style/caption"
                     />
 
                 <FrameLayout
@@ -191,7 +191,7 @@
                     android:id="@+id/secondary_toolbar_color_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textAppearance="@style/caption"
                     />
 
             </LinearLayout>
@@ -204,13 +204,74 @@
                 android:orientation="horizontal"
                 >
 
-
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/show_title_switch"
+                    android:id="@+id/show_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="showTitle"
+                    android:textAppearance="@style/caption"
                     />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/url_bar_hiding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="enableUrlBarHiding"
+                    android:textAppearance="@style/caption"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/color_scheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="colorScheme"
+                    android:textAppearance="@style/caption"
+                    />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <RadioButton
+                        android:id="@+id/color_scheme_system"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="SYSTEM"
+                        android:textAppearance="@style/caption"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/color_scheme_light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="LIGHT"
+                        android:textAppearance="@style/caption"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/color_scheme_dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="DARK"
+                        android:textAppearance="@style/caption"
+                        />
+                </RadioGroup>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

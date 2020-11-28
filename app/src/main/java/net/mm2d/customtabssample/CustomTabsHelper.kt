@@ -22,6 +22,7 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
     var session: CustomTabsSession? = null
         private set
     var packageName: String? = null
+        private set
 
     internal fun bind(context: Context, packageName: String) {
         if (!bound) {

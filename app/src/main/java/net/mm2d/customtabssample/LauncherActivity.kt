@@ -16,7 +16,6 @@ import net.mm2d.customtabssample.databinding.ActivityLauncherBinding
 
 class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
     private lateinit var binding: ActivityLauncherBinding
-    private lateinit var browserPackage: String
     private var toolbarColor: Int = Color.WHITE
     private var secondaryToolbarColor: Int = Color.WHITE
 
@@ -25,10 +24,10 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         binding = ActivityLauncherBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        browserPackage = intent.getStringExtra(EXTRA_PACKAGE_NAME)!!
+        val packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME)!!
         supportActionBar?.let {
             it.title = intent.getStringExtra(EXTRA_LABEL)
-            it.subtitle = browserPackage
+            it.subtitle = packageName
         }
         binding.toolbar.isFocusable = true
         binding.toolbar.isFocusableInTouchMode = true
@@ -44,7 +43,7 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         binding.secondaryToolbarColorSample.setOnClickListener {
             ColorChooserDialog.show(this, REQUEST_CODE_SECONDARY_TOOLBAR, secondaryToolbarColor)
         }
-        CustomTabsHelper.bind(this, browserPackage)
+        CustomTabsHelper.bind(this, packageName)
     }
 
     override fun onDestroy() {
@@ -54,15 +53,27 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
 
     private fun launch() {
         val customTabsIntent = CustomTabsIntent.Builder(CustomTabsHelper.session).also {
-            if (binding.toolbarColorSwitch.isChecked) {
+            if (binding.toolbarColor.isChecked) {
                 it.setToolbarColor(toolbarColor)
             }
-            if (binding.secondaryToolbarColorSwitch.isChecked) {
+            if (binding.secondaryToolbarColor.isChecked) {
                 it.setSecondaryToolbarColor(secondaryToolbarColor)
             }
-            it.setShowTitle(binding.showTitleSwitch.isChecked)
+            it.setShowTitle(binding.showTitle.isChecked)
+            if (binding.urlBarHiding.isChecked) {
+                it.enableUrlBarHiding()
+            }
+            if (binding.colorScheme.isChecked) {
+                it.setColorScheme(
+                    when {
+                        binding.colorSchemeLight.isChecked -> CustomTabsIntent.COLOR_SCHEME_LIGHT
+                        binding.colorSchemeDark.isChecked -> CustomTabsIntent.COLOR_SCHEME_DARK
+                        else -> CustomTabsIntent.COLOR_SCHEME_SYSTEM
+                    }
+                )
+            }
         }.build()
-        customTabsIntent.intent.setPackage(browserPackage)
+        customTabsIntent.intent.setPackage(intent.getStringExtra(EXTRA_PACKAGE_NAME))
         customTabsIntent.launchUrl(this, Uri.parse(binding.editText.text.toString()))
     }
 
@@ -110,7 +121,7 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
     companion object {
         private const val REQUEST_CODE_TOOLBAR = 1
         private const val REQUEST_CODE_SECONDARY_TOOLBAR = 2
-        private const val DEFAULT_URL = "https://m.yahoo.co.jp/"
+        private const val DEFAULT_URL = "https://cs.android.com/"
         private const val SECOND_URL = "https://news.yahoo.co.jp/"
         private const val EXTRA_PACKAGE_NAME = "EXTRA_PACKAGE_NAME"
         private const val EXTRA_LABEL = "EXTRA_LABEL"
