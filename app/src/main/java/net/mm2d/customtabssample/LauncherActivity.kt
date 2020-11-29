@@ -8,9 +8,12 @@
 package net.mm2d.customtabssample
 
 import android.annotation.SuppressLint
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.widget.TextView
@@ -19,6 +22,7 @@ import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import net.mm2d.color.chooser.ColorChooserDialog
 import net.mm2d.customtabssample.databinding.ActivityLauncherBinding
 
@@ -87,6 +91,15 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         CustomTabsHelper.unbind(this)
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        val message = intent.getStringExtra(EXTRA_MESSAGE)
+        if (message.isNullOrEmpty()) return
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).also { bar ->
+            bar.setAction("OK") { bar.dismiss() }
+        }.show()
+    }
+
     private fun launch() {
         val customTabsIntent = CustomTabsIntent.Builder(CustomTabsHelper.session).also {
             if (binding.toolbarColor.isChecked) {
@@ -127,10 +140,26 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
                 }.build()
                 it.setColorSchemeParams(scheme, params)
             }
+            if (binding.closeButtonIcon.isChecked) {
+                it.setCloseButtonIcon(getBitmap(R.drawable.ic_back))
+            }
+            if (binding.defaultShareMenuItem.isChecked) {
+                it.addDefaultShareMenuItem()
+            }
+            if (binding.actionButton.isChecked) {
+                val intent = Intent(this, LauncherActivity::class.java)
+                intent.putExtra(EXTRA_MESSAGE, "Account clicked")
+                val pendingIntent =
+                    PendingIntent.getActivity(this, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                it.setActionButton(getBitmap(R.drawable.ic_account), "Account", pendingIntent, true)
+            }
         }.build()
         customTabsIntent.intent.setPackage(intent.getStringExtra(EXTRA_PACKAGE_NAME))
         customTabsIntent.launchUrl(this, Uri.parse(binding.editText.text.toString()))
     }
+
+    private fun getBitmap(drawableRes: Int): Bitmap =
+        (ContextCompat.getDrawable(this, drawableRes) as BitmapDrawable).bitmap
 
     override fun onColorChooserResult(requestCode: Int, resultCode: Int, color: Int) {
         if (resultCode != RESULT_OK) return
@@ -201,6 +230,7 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         private const val SECOND_URL = "https://news.yahoo.co.jp/"
         private const val EXTRA_PACKAGE_NAME = "EXTRA_PACKAGE_NAME"
         private const val EXTRA_LABEL = "EXTRA_LABEL"
+        private const val EXTRA_MESSAGE = "EXTRA_MESSAGE"
 
         fun start(context: Context, packageName: String, label: String) {
             Intent(context, LauncherActivity::class.java).also {

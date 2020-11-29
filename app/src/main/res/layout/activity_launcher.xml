@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="toolbar"
+                    android:text="Toolbar"
                     android:textAppearance="@style/caption"
                     />
 
@@ -145,7 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
-                    android:text="secondary\ntoolbar"
+                    android:text="Secondary\nToolbar"
                     android:textAppearance="@style/caption"
                     />
 
@@ -193,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:checked="false"
-                    android:text="navigationbar"
+                    android:text="Navigation Bar"
                     android:textAppearance="@style/caption"
                     />
 
@@ -260,6 +260,71 @@
                     android:text="enableUrlBarHiding"
                     android:textAppearance="@style/caption"
                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/close_button_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CloseButtonIcon"
+                    android:textAppearance="@style/caption"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/icon"
+                    />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/default_share_menu_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="DefaultShareMenuItem"
+                    android:textAppearance="@style/caption"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/action_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ActionButton"
+                    android:textAppearance="@style/caption"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_account"
+                    app:tint="@color/icon"
+                    android:layout_marginStart="16dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Account"
+                    android:textAppearance="@style/caption"
+                    />
+
             </LinearLayout>
 
             <LinearLayout
@@ -372,7 +437,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="toolbar"
+                    android:text="Toolbar"
                     android:textAppearance="@style/caption"
                     />
 
@@ -436,7 +501,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
-                    android:text="secondary\ntoolbar"
+                    android:text="Secondary\nToolbar"
                     android:textAppearance="@style/caption"
                     />
 
@@ -484,7 +549,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:checked="false"
-                    android:text="navigationbar"
+                    android:text="Navigation Bar"
                     android:textAppearance="@style/caption"
                     />
 
