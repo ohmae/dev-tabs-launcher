@@ -123,7 +123,7 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
                 }
             "$message $button clicked\non ${intent.dataString}"
         } else {
-            message
+            "$message clicked\non ${intent.dataString}"
         }
         Snackbar.make(binding.root, text, Snackbar.LENGTH_INDEFINITE).also { bar ->
             bar.setAction("OK") { bar.dismiss() }
@@ -190,20 +190,31 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
             builder.setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right)
         }
         if (binding.actionButton.isChecked) {
-            val intent = Intent(this, LauncherActivity::class.java)
-            intent.putExtra(EXTRA_MESSAGE, "Account")
-            val pendingIntent =
-                PendingIntent.getActivity(
-                    this,
-                    REQUEST_CODE_ACTION_BUTTON,
-                    intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT
-                )
             builder.setActionButton(
                 getBitmap(R.drawable.ic_account),
                 "Account",
-                pendingIntent,
+                PendingIntent.getActivity(
+                    this,
+                    REQUEST_CODE_ACTION_BUTTON,
+                    Intent(this, LauncherActivity::class.java).also {
+                        it.putExtra(EXTRA_MESSAGE, "Account")
+                    },
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                ),
                 true
+            )
+        }
+        if (binding.menuItem.isChecked) {
+            builder.addMenuItem(
+                "MenuItem",
+                PendingIntent.getActivity(
+                    this,
+                    REQUEST_CODE_MENU_ITEM,
+                    Intent(this, LauncherActivity::class.java).also {
+                        it.putExtra(EXTRA_MESSAGE, "MenuItem")
+                    },
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
             )
         }
         if (binding.toolbarItem.isChecked) {
@@ -352,11 +363,12 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         private const val EXTRA_MESSAGE = "EXTRA_MESSAGE"
         private const val MESSAGE_SECONDARY_TOOLBAR = "SecondaryToolbar"
         private const val REQUEST_CODE_ACTION_BUTTON = 100
-        private const val REQUEST_CODE_TOOLBAR_ITEM1 = 101
-        private const val REQUEST_CODE_TOOLBAR_ITEM2 = 102
-        private const val REQUEST_CODE_TOOLBAR_ITEM3 = 103
-        private const val REQUEST_CODE_TOOLBAR_ITEM4 = 104
-        private const val REQUEST_CODE_SECONDARY_TOOLBAR = 105
+        private const val REQUEST_CODE_MENU_ITEM = 101
+        private const val REQUEST_CODE_TOOLBAR_ITEM1 = 102
+        private const val REQUEST_CODE_TOOLBAR_ITEM2 = 103
+        private const val REQUEST_CODE_TOOLBAR_ITEM3 = 104
+        private const val REQUEST_CODE_TOOLBAR_ITEM4 = 105
+        private const val REQUEST_CODE_SECONDARY_TOOLBAR = 106
 
         fun start(context: Context, packageName: String, label: String) {
             Intent(context, LauncherActivity::class.java).also {
