@@ -9,6 +9,9 @@ package net.mm2d.customtabssample
 
 import android.content.ComponentName
 import android.content.Context
+import android.net.Uri
+import android.os.Bundle
+import android.util.Log
 import androidx.browser.customtabs.CustomTabsCallback
 import androidx.browser.customtabs.CustomTabsClient
 import androidx.browser.customtabs.CustomTabsServiceConnection
@@ -46,7 +49,43 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
 
     override fun onCustomTabsServiceConnected(name: ComponentName, client: CustomTabsClient) {
         client.warmup(0)
-        session = client.newSession(CustomTabsCallback())
+        session = client.newSession(object : CustomTabsCallback() {
+            override fun onNavigationEvent(navigationEvent: Int, extras: Bundle?) {
+                extras?.containsKey("")
+                Log.e("XXXX", "onNavigationEvent: $navigationEvent $extras")
+            }
+
+            override fun extraCallback(callbackName: String, args: Bundle?) {
+                args?.containsKey("")
+                Log.e("XXXX", "extraCallback: $callbackName $args")
+            }
+
+            override fun extraCallbackWithResult(callbackName: String, args: Bundle?): Bundle? {
+                args?.containsKey("")
+                Log.e("XXXX", "extraCallbackWithResult: $callbackName $args")
+                return null
+            }
+
+            override fun onMessageChannelReady(extras: Bundle?) {
+                extras?.containsKey("")
+                Log.e("XXXX", "onMessageChannelReady: $extras")
+            }
+
+            override fun onPostMessage(message: String, extras: Bundle?) {
+                extras?.containsKey("")
+                Log.e("XXXX", "onPostMessage: $message $extras")
+            }
+
+            override fun onRelationshipValidationResult(
+                relation: Int,
+                requestedOrigin: Uri,
+                result: Boolean,
+                extras: Bundle?
+            ) {
+                extras?.containsKey("")
+                Log.e("XXXX", "onRelationshipValidationResult: $relation $requestedOrigin $result $extras")
+            }
+        })
     }
 
     override fun onServiceDisconnected(name: ComponentName) {

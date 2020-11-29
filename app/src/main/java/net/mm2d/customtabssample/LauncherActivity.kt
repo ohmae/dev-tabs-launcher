@@ -346,7 +346,7 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         private const val COLOR_REQUEST_CODE_SECONDARY_TOOLBAR_SCHEME = 5
         private const val COLOR_REQUEST_CODE_NAVIGATION_BAR_SCHEME = 6
         private const val DEFAULT_URL = "https://cs.android.com/"
-        private const val SECOND_URL = "https://news.yahoo.co.jp/"
+        private const val SECOND_URL = "https://developer.android.com/"
         private const val EXTRA_PACKAGE_NAME = "EXTRA_PACKAGE_NAME"
         private const val EXTRA_LABEL = "EXTRA_LABEL"
         private const val EXTRA_MESSAGE = "EXTRA_MESSAGE"
