@@ -16,6 +16,7 @@ import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.widget.RemoteViews
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabColorSchemeParams
@@ -53,25 +54,41 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         toolbarColor = ContextCompat.getColor(this, R.color.colorAccent)
         setToolbarColor(toolbarColor)
         binding.toolbarColorSample.setOnClickListener {
-            ColorChooserDialog.show(this, REQUEST_CODE_TOOLBAR, toolbarColor)
+            ColorChooserDialog.show(
+                this,
+                COLOR_REQUEST_CODE_TOOLBAR,
+                toolbarColor
+            )
         }
         binding.secondaryToolbarColorSample.setBackgroundColor(secondaryToolbarColor)
         binding.secondaryToolbarColorSample.setOnClickListener {
-            ColorChooserDialog.show(this, REQUEST_CODE_SECONDARY_TOOLBAR, secondaryToolbarColor)
+            ColorChooserDialog.show(
+                this,
+                COLOR_REQUEST_CODE_SECONDARY_TOOLBAR,
+                secondaryToolbarColor
+            )
         }
         binding.navigationBarColorSample.setBackgroundColor(navigationBarColor)
         binding.navigationBarColorSample.setOnClickListener {
-            ColorChooserDialog.show(this, REQUEST_CODE_NAVIGATION_BAR, navigationBarColor)
+            ColorChooserDialog.show(
+                this,
+                COLOR_REQUEST_CODE_NAVIGATION_BAR,
+                navigationBarColor
+            )
         }
         setToolbarColorScheme(toolbarColorScheme)
         binding.toolbarColorSchemeSample.setOnClickListener {
-            ColorChooserDialog.show(this, REQUEST_CODE_TOOLBAR_SCHEME, toolbarColorScheme)
+            ColorChooserDialog.show(
+                this,
+                COLOR_REQUEST_CODE_TOOLBAR_SCHEME,
+                toolbarColorScheme
+            )
         }
         binding.secondaryToolbarColorSchemeSample.setBackgroundColor(secondaryToolbarColorScheme)
         binding.secondaryToolbarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
                 this,
-                REQUEST_CODE_SECONDARY_TOOLBAR_SCHEME,
+                COLOR_REQUEST_CODE_SECONDARY_TOOLBAR_SCHEME,
                 secondaryToolbarColorScheme
             )
         }
@@ -79,7 +96,7 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         binding.navigationBarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
                 this,
-                REQUEST_CODE_NAVIGATION_BAR_SCHEME,
+                COLOR_REQUEST_CODE_NAVIGATION_BAR_SCHEME,
                 navigationBarColorScheme
             )
         }
@@ -95,67 +112,111 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         super.onNewIntent(intent)
         val message = intent.getStringExtra(EXTRA_MESSAGE)
         if (message.isNullOrEmpty()) return
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).also { bar ->
+        val text = if (message == MESSAGE_SECONDARY_TOOLBAR) {
+            val button =
+                when (intent.getIntExtra(CustomTabsIntent.EXTRA_REMOTEVIEWS_CLICKED_ID, 0)) {
+                    R.id.button1 -> "button1"
+                    R.id.button2 -> "button2"
+                    R.id.button3 -> "button3"
+                    R.id.button4 -> "button4"
+                    else -> "unknown"
+                }
+            "$message $button clicked\non ${intent.dataString}"
+        } else {
+            message
+        }
+        Snackbar.make(binding.root, text, Snackbar.LENGTH_INDEFINITE).also { bar ->
             bar.setAction("OK") { bar.dismiss() }
         }.show()
     }
 
     private fun launch() {
         val customTabsIntent = CustomTabsIntent.Builder(CustomTabsHelper.session).also {
-            if (binding.toolbarColor.isChecked) {
-                it.setToolbarColor(toolbarColor)
-            }
-            if (binding.secondaryToolbarColor.isChecked) {
-                it.setSecondaryToolbarColor(secondaryToolbarColor)
-            }
-            if (binding.navigationBarColor.isChecked) {
-                it.setNavigationBarColor(navigationBarColor)
-            }
-            it.setShowTitle(binding.showTitle.isChecked)
-            if (binding.urlBarHiding.isChecked) {
-                it.enableUrlBarHiding()
-            }
-            if (binding.colorScheme.isChecked) {
-                it.setColorScheme(
-                    when {
-                        binding.colorSchemeLight.isChecked -> CustomTabsIntent.COLOR_SCHEME_LIGHT
-                        binding.colorSchemeDark.isChecked -> CustomTabsIntent.COLOR_SCHEME_DARK
-                        else -> CustomTabsIntent.COLOR_SCHEME_SYSTEM
-                    }
-                )
-            }
-            if (binding.colorSchemeParams.isChecked) {
-                val scheme =
-                    if (binding.colorSchemeParamsLight.isChecked) CustomTabsIntent.COLOR_SCHEME_LIGHT else CustomTabsIntent.COLOR_SCHEME_DARK
-                val params = CustomTabColorSchemeParams.Builder().also { builder ->
-                    if (binding.toolbarColorScheme.isChecked) {
-                        builder.setToolbarColor(toolbarColorScheme)
-                    }
-                    if (binding.secondaryToolbarColorScheme.isChecked) {
-                        builder.setSecondaryToolbarColor(secondaryToolbarColorScheme)
-                    }
-                    if (binding.navigationBarColorScheme.isChecked) {
-                        builder.setNavigationBarColor(navigationBarColorScheme)
-                    }
-                }.build()
-                it.setColorSchemeParams(scheme, params)
-            }
-            if (binding.closeButtonIcon.isChecked) {
-                it.setCloseButtonIcon(getBitmap(R.drawable.ic_back))
-            }
-            if (binding.defaultShareMenuItem.isChecked) {
-                it.addDefaultShareMenuItem()
-            }
-            if (binding.actionButton.isChecked) {
-                val intent = Intent(this, LauncherActivity::class.java)
-                intent.putExtra(EXTRA_MESSAGE, "Account clicked")
-                val pendingIntent =
-                    PendingIntent.getActivity(this, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-                it.setActionButton(getBitmap(R.drawable.ic_account), "Account", pendingIntent, true)
-            }
+            setUpCustomTabsIntent(it)
         }.build()
         customTabsIntent.intent.setPackage(intent.getStringExtra(EXTRA_PACKAGE_NAME))
         customTabsIntent.launchUrl(this, Uri.parse(binding.editText.text.toString()))
+    }
+
+    private fun setUpCustomTabsIntent(builder: CustomTabsIntent.Builder) {
+        if (binding.toolbarColor.isChecked) {
+            builder.setToolbarColor(toolbarColor)
+        }
+        if (binding.secondaryToolbarColor.isChecked) {
+            builder.setSecondaryToolbarColor(secondaryToolbarColor)
+        }
+        if (binding.navigationBarColor.isChecked) {
+            builder.setNavigationBarColor(navigationBarColor)
+        }
+        builder.setShowTitle(binding.showTitle.isChecked)
+        if (binding.urlBarHiding.isChecked) {
+            builder.enableUrlBarHiding()
+        }
+        if (binding.colorScheme.isChecked) {
+            builder.setColorScheme(
+                when {
+                    binding.colorSchemeLight.isChecked -> CustomTabsIntent.COLOR_SCHEME_LIGHT
+                    binding.colorSchemeDark.isChecked -> CustomTabsIntent.COLOR_SCHEME_DARK
+                    else -> CustomTabsIntent.COLOR_SCHEME_SYSTEM
+                }
+            )
+        }
+        if (binding.colorSchemeParams.isChecked) {
+            val scheme =
+                if (binding.colorSchemeParamsLight.isChecked) CustomTabsIntent.COLOR_SCHEME_LIGHT else CustomTabsIntent.COLOR_SCHEME_DARK
+            val params = CustomTabColorSchemeParams.Builder().also { builder ->
+                if (binding.toolbarColorScheme.isChecked) {
+                    builder.setToolbarColor(toolbarColorScheme)
+                }
+                if (binding.secondaryToolbarColorScheme.isChecked) {
+                    builder.setSecondaryToolbarColor(secondaryToolbarColorScheme)
+                }
+                if (binding.navigationBarColorScheme.isChecked) {
+                    builder.setNavigationBarColor(navigationBarColorScheme)
+                }
+            }.build()
+            builder.setColorSchemeParams(scheme, params)
+        }
+        if (binding.closeButtonIcon.isChecked) {
+            builder.setCloseButtonIcon(getBitmap(R.drawable.ic_back))
+        }
+        if (binding.defaultShareMenuItem.isChecked) {
+            builder.addDefaultShareMenuItem()
+        }
+        if (binding.actionButton.isChecked) {
+            val intent = Intent(this, LauncherActivity::class.java)
+            intent.putExtra(EXTRA_MESSAGE, "Account")
+            val pendingIntent =
+                PendingIntent.getActivity(
+                    this,
+                    REQUEST_CODE_ACTION_BUTTON,
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            builder.setActionButton(
+                getBitmap(R.drawable.ic_account),
+                "Account",
+                pendingIntent,
+                true
+            )
+        }
+        if (binding.secondaryToolbar.isChecked) {
+            val remoteViews = RemoteViews(packageName, R.layout.secondary_toolbar)
+            val intent = Intent(this, LauncherActivity::class.java)
+            intent.putExtra(EXTRA_MESSAGE, MESSAGE_SECONDARY_TOOLBAR)
+            val pendingIntent =
+                PendingIntent.getActivity(
+                    this,
+                    REQUEST_CODE_SECONDARY_TOOLBAR,
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            builder.setSecondaryToolbarViews(
+                remoteViews,
+                intArrayOf(R.id.button1, R.id.button2, R.id.button3, R.id.button4),
+                pendingIntent
+            )
+        }
     }
 
     private fun getBitmap(drawableRes: Int): Bitmap =
@@ -164,23 +225,23 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
     override fun onColorChooserResult(requestCode: Int, resultCode: Int, color: Int) {
         if (resultCode != RESULT_OK) return
         when (requestCode) {
-            REQUEST_CODE_TOOLBAR ->
+            COLOR_REQUEST_CODE_TOOLBAR ->
                 setToolbarColor(color)
-            REQUEST_CODE_SECONDARY_TOOLBAR -> {
+            COLOR_REQUEST_CODE_SECONDARY_TOOLBAR -> {
                 secondaryToolbarColor = color
                 binding.secondaryToolbarColorSample.setBackgroundColor(color)
             }
-            REQUEST_CODE_NAVIGATION_BAR -> {
+            COLOR_REQUEST_CODE_NAVIGATION_BAR -> {
                 navigationBarColor = color
                 binding.navigationBarColorSample.setBackgroundColor(color)
             }
-            REQUEST_CODE_TOOLBAR_SCHEME ->
+            COLOR_REQUEST_CODE_TOOLBAR_SCHEME ->
                 setToolbarColorScheme(color)
-            REQUEST_CODE_SECONDARY_TOOLBAR_SCHEME -> {
+            COLOR_REQUEST_CODE_SECONDARY_TOOLBAR_SCHEME -> {
                 secondaryToolbarColorScheme = color
                 binding.secondaryToolbarColorSchemeSample.setBackgroundColor(color)
             }
-            REQUEST_CODE_NAVIGATION_BAR_SCHEME -> {
+            COLOR_REQUEST_CODE_NAVIGATION_BAR_SCHEME -> {
                 navigationBarColorScheme = color
                 binding.navigationBarColorSchemeSample.setBackgroundColor(color)
             }
@@ -220,17 +281,21 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         Bundle().also { it.putParcelable(CustomTabsService.KEY_URL, uri) }
 
     companion object {
-        private const val REQUEST_CODE_TOOLBAR = 1
-        private const val REQUEST_CODE_SECONDARY_TOOLBAR = 2
-        private const val REQUEST_CODE_NAVIGATION_BAR = 3
-        private const val REQUEST_CODE_TOOLBAR_SCHEME = 4
-        private const val REQUEST_CODE_SECONDARY_TOOLBAR_SCHEME = 5
-        private const val REQUEST_CODE_NAVIGATION_BAR_SCHEME = 6
+        private const val COLOR_REQUEST_CODE_TOOLBAR = 1
+        private const val COLOR_REQUEST_CODE_SECONDARY_TOOLBAR = 2
+        private const val COLOR_REQUEST_CODE_NAVIGATION_BAR = 3
+        private const val COLOR_REQUEST_CODE_TOOLBAR_SCHEME = 4
+        private const val COLOR_REQUEST_CODE_SECONDARY_TOOLBAR_SCHEME = 5
+        private const val COLOR_REQUEST_CODE_NAVIGATION_BAR_SCHEME = 6
         private const val DEFAULT_URL = "https://cs.android.com/"
         private const val SECOND_URL = "https://news.yahoo.co.jp/"
         private const val EXTRA_PACKAGE_NAME = "EXTRA_PACKAGE_NAME"
         private const val EXTRA_LABEL = "EXTRA_LABEL"
         private const val EXTRA_MESSAGE = "EXTRA_MESSAGE"
+        private const val MESSAGE_SECONDARY_TOOLBAR = "SecondaryToolbar"
+        private const val REQUEST_CODE_ACTION_BUTTON = 100
+        private const val REQUEST_CODE_SECONDARY_TOOLBAR = 101
+
 
         fun start(context: Context, packageName: String, label: String) {
             Intent(context, LauncherActivity::class.java).also {
