@@ -164,15 +164,15 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         if (binding.colorSchemeParams.isChecked) {
             val scheme =
                 if (binding.colorSchemeParamsLight.isChecked) CustomTabsIntent.COLOR_SCHEME_LIGHT else CustomTabsIntent.COLOR_SCHEME_DARK
-            val params = CustomTabColorSchemeParams.Builder().also { builder ->
+            val params = CustomTabColorSchemeParams.Builder().also {
                 if (binding.toolbarColorScheme.isChecked) {
-                    builder.setToolbarColor(toolbarColorScheme)
+                    it.setToolbarColor(toolbarColorScheme)
                 }
                 if (binding.secondaryToolbarColorScheme.isChecked) {
-                    builder.setSecondaryToolbarColor(secondaryToolbarColorScheme)
+                    it.setSecondaryToolbarColor(secondaryToolbarColorScheme)
                 }
                 if (binding.navigationBarColorScheme.isChecked) {
-                    builder.setNavigationBarColor(navigationBarColorScheme)
+                    it.setNavigationBarColor(navigationBarColorScheme)
                 }
             }.build()
             builder.setColorSchemeParams(scheme, params)
