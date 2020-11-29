@@ -183,6 +183,12 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         if (binding.defaultShareMenuItem.isChecked) {
             builder.addDefaultShareMenuItem()
         }
+        if (binding.startAnimation.isChecked) {
+            builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+        if (binding.exitAnimation.isChecked) {
+            builder.setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right)
+        }
         if (binding.actionButton.isChecked) {
             val intent = Intent(this, LauncherActivity::class.java)
             intent.putExtra(EXTRA_MESSAGE, "Account")

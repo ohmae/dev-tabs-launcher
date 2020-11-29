@@ -311,6 +311,35 @@
                 >
 
                 <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/start_animation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="StartAnimation"
+                    android:textAppearance="@style/caption"
+                    />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/exit_animation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="ExitAnimation"
+                    android:textAppearance="@style/caption"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                >
+
+                <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/action_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
