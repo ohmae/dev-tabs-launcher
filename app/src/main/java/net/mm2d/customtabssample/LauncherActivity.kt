@@ -200,21 +200,73 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
                 true
             )
         }
-        if (binding.secondaryToolbar.isChecked) {
-            val remoteViews = RemoteViews(packageName, R.layout.secondary_toolbar)
-            val intent = Intent(this, LauncherActivity::class.java)
-            intent.putExtra(EXTRA_MESSAGE, MESSAGE_SECONDARY_TOOLBAR)
-            val pendingIntent =
+        if (binding.toolbarItem.isChecked) {
+            builder.addToolbarItem(
+                R.id.button1,
+                getBitmap(R.drawable.ic_1),
+                "button1",
                 PendingIntent.getActivity(
                     this,
-                    REQUEST_CODE_SECONDARY_TOOLBAR,
-                    intent,
+                    REQUEST_CODE_TOOLBAR_ITEM1,
+                    Intent(this, LauncherActivity::class.java).also {
+                        it.putExtra(EXTRA_MESSAGE, "button1")
+                    },
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
+            )
+            builder.addToolbarItem(
+                R.id.button2,
+                getBitmap(R.drawable.ic_2),
+                "button2",
+                PendingIntent.getActivity(
+                    this,
+                    REQUEST_CODE_TOOLBAR_ITEM2,
+                    Intent(this, LauncherActivity::class.java).also {
+                        it.putExtra(EXTRA_MESSAGE, "button2")
+                    },
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            )
+            builder.addToolbarItem(
+                R.id.button3,
+                getBitmap(R.drawable.ic_3),
+                "button3",
+                PendingIntent.getActivity(
+                    this,
+                    REQUEST_CODE_TOOLBAR_ITEM3,
+                    Intent(this, LauncherActivity::class.java).also {
+                        it.putExtra(EXTRA_MESSAGE, "button3")
+                    },
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            )
+            builder.addToolbarItem(
+                R.id.button4,
+                getBitmap(R.drawable.ic_4),
+                "button4",
+                PendingIntent.getActivity(
+                    this,
+                    REQUEST_CODE_TOOLBAR_ITEM4,
+                    Intent(this, LauncherActivity::class.java).also {
+                        it.putExtra(EXTRA_MESSAGE, "button4")
+                    },
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            )
+        }
+        if (binding.secondaryToolbar.isChecked) {
+            val remoteViews = RemoteViews(packageName, R.layout.secondary_toolbar)
             builder.setSecondaryToolbarViews(
                 remoteViews,
                 intArrayOf(R.id.button1, R.id.button2, R.id.button3, R.id.button4),
-                pendingIntent
+                PendingIntent.getActivity(
+                    this,
+                    REQUEST_CODE_SECONDARY_TOOLBAR,
+                    Intent(this, LauncherActivity::class.java).also {
+                        it.putExtra(EXTRA_MESSAGE, MESSAGE_SECONDARY_TOOLBAR)
+                    },
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
             )
         }
     }
@@ -294,8 +346,11 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         private const val EXTRA_MESSAGE = "EXTRA_MESSAGE"
         private const val MESSAGE_SECONDARY_TOOLBAR = "SecondaryToolbar"
         private const val REQUEST_CODE_ACTION_BUTTON = 100
-        private const val REQUEST_CODE_SECONDARY_TOOLBAR = 101
-
+        private const val REQUEST_CODE_TOOLBAR_ITEM1 = 101
+        private const val REQUEST_CODE_TOOLBAR_ITEM2 = 102
+        private const val REQUEST_CODE_TOOLBAR_ITEM3 = 103
+        private const val REQUEST_CODE_TOOLBAR_ITEM4 = 104
+        private const val REQUEST_CODE_SECONDARY_TOOLBAR = 105
 
         fun start(context: Context, packageName: String, label: String) {
             Intent(context, LauncherActivity::class.java).also {
