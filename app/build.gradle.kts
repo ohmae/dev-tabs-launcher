@@ -15,7 +15,6 @@ android {
         targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
-        resConfigs("en", "ja")
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -45,8 +44,8 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.browser:browser:1.3.0")
-    implementation("com.google.android.material:material:1.2.1")
-    implementation("net.mm2d:color-chooser:0.2.1")
+    implementation("com.google.android.material:material:1.3.0")
+    implementation("net.mm2d:color-chooser:0.2.3")
 }
 
 fun isStable(version: String): Boolean {
