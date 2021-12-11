@@ -7,12 +7,12 @@ plugins {
 }
 
 android {
-    compileSdk = 30
+    compileSdk = 31
 
     defaultConfig {
         applicationId = "net.mm2d.customtabssample"
         minSdk = 21
-        targetSdk = 30
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
     }
@@ -38,13 +38,13 @@ android {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
+    implementation("androidx.appcompat:appcompat:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.2")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
-    implementation("androidx.core:core-ktx:1.6.0")
-    implementation("androidx.browser:browser:1.3.0")
+    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.browser:browser:1.4.0")
     implementation("com.google.android.material:material:1.4.0")
-    implementation("net.mm2d.color-chooser:color-chooser:0.3.0")
+    implementation("net.mm2d.color-chooser:color-chooser:0.4.0")
 }
 
 fun isStable(version: String): Boolean {

@@ -15,6 +15,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.widget.RemoteViews
 import android.widget.TextView
@@ -199,7 +200,7 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, "Account")
                     },
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                    FLAGS
                 ),
                 true
             )
@@ -213,7 +214,7 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, "MenuItem")
                     },
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                    FLAGS
                 )
             )
         }
@@ -228,7 +229,7 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, "button1")
                     },
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                    FLAGS
                 )
             )
             builder.addToolbarItem(
@@ -241,7 +242,7 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, "button2")
                     },
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                    FLAGS
                 )
             )
             builder.addToolbarItem(
@@ -254,7 +255,7 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, "button3")
                     },
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                    FLAGS
                 )
             )
             builder.addToolbarItem(
@@ -267,7 +268,7 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, "button4")
                     },
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                    FLAGS
                 )
             )
         }
@@ -282,7 +283,7 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, MESSAGE_SECONDARY_TOOLBAR)
                     },
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                    FLAGS
                 )
             )
         }
@@ -369,6 +370,11 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         private const val REQUEST_CODE_TOOLBAR_ITEM3 = 104
         private const val REQUEST_CODE_TOOLBAR_ITEM4 = 105
         private const val REQUEST_CODE_SECONDARY_TOOLBAR = 106
+        private val FLAGS = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
 
         fun start(context: Context, packageName: String, label: String) {
             Intent(context, LauncherActivity::class.java).also {
