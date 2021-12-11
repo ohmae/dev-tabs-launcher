@@ -28,7 +28,7 @@ import com.google.android.material.snackbar.Snackbar
 import net.mm2d.color.chooser.ColorChooserDialog
 import net.mm2d.customtabssample.databinding.ActivityLauncherBinding
 
-class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
+class LauncherActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLauncherBinding
     private var toolbarColor: Int = Color.WHITE
     private var secondaryToolbarColor: Int = Color.WHITE
@@ -54,50 +54,72 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         binding.launchButton.setOnClickListener { launch() }
         toolbarColor = ContextCompat.getColor(this, R.color.colorAccent)
         setToolbarColor(toolbarColor)
+        ColorChooserDialog.registerListener(REQUEST_KEY_TOOLBAR, this) {
+            setToolbarColor(it)
+        }
         binding.toolbarColorSample.setOnClickListener {
             ColorChooserDialog.show(
                 this,
-                COLOR_REQUEST_CODE_TOOLBAR,
+                REQUEST_KEY_TOOLBAR,
                 toolbarColor
             )
         }
         binding.secondaryToolbarColorSample.setBackgroundColor(secondaryToolbarColor)
+        ColorChooserDialog.registerListener(REQUEST_KEY_SECONDARY_TOOLBAR, this) {
+            secondaryToolbarColor = it
+            binding.secondaryToolbarColorSample.setBackgroundColor(it)
+        }
         binding.secondaryToolbarColorSample.setOnClickListener {
             ColorChooserDialog.show(
                 this,
-                COLOR_REQUEST_CODE_SECONDARY_TOOLBAR,
+                REQUEST_KEY_SECONDARY_TOOLBAR,
                 secondaryToolbarColor
             )
         }
         binding.navigationBarColorSample.setBackgroundColor(navigationBarColor)
+        ColorChooserDialog.registerListener(REQUEST_KEY_NAVIGATION_BAR, this) {
+            navigationBarColor = it
+            binding.navigationBarColorSample.setBackgroundColor(it)
+        }
         binding.navigationBarColorSample.setOnClickListener {
             ColorChooserDialog.show(
                 this,
-                COLOR_REQUEST_CODE_NAVIGATION_BAR,
+                REQUEST_KEY_NAVIGATION_BAR,
                 navigationBarColor
             )
         }
         setToolbarColorScheme(toolbarColorScheme)
+        ColorChooserDialog.registerListener(REQUEST_KEY_TOOLBAR_SCHEME, this) {
+            setToolbarColorScheme(it)
+        }
         binding.toolbarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
                 this,
-                COLOR_REQUEST_CODE_TOOLBAR_SCHEME,
+                REQUEST_KEY_TOOLBAR_SCHEME,
                 toolbarColorScheme
             )
         }
         binding.secondaryToolbarColorSchemeSample.setBackgroundColor(secondaryToolbarColorScheme)
+        ColorChooserDialog.registerListener(REQUEST_KEY_SECONDARY_TOOLBAR_SCHEME, this) {
+            secondaryToolbarColorScheme = it
+            binding.secondaryToolbarColorSchemeSample.setBackgroundColor(it)
+        }
         binding.secondaryToolbarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
                 this,
-                COLOR_REQUEST_CODE_SECONDARY_TOOLBAR_SCHEME,
+                REQUEST_KEY_SECONDARY_TOOLBAR_SCHEME,
                 secondaryToolbarColorScheme
             )
         }
         binding.navigationBarColorSchemeSample.setBackgroundColor(navigationBarColorScheme)
+        ColorChooserDialog.registerListener(REQUEST_KEY_NAVIGATION_BAR_SCHEME, this) {
+            navigationBarColorScheme = it
+            binding.navigationBarColorSchemeSample.setBackgroundColor(it)
+        }
         binding.navigationBarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
                 this,
-                COLOR_REQUEST_CODE_NAVIGATION_BAR_SCHEME,
+                REQUEST_KEY_NAVIGATION_BAR_SCHEME,
                 navigationBarColorScheme
             )
         }
@@ -292,32 +314,6 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
     private fun getBitmap(drawableRes: Int): Bitmap =
         (ContextCompat.getDrawable(this, drawableRes) as BitmapDrawable).bitmap
 
-    override fun onColorChooserResult(requestCode: Int, resultCode: Int, color: Int) {
-        if (resultCode != RESULT_OK) return
-        when (requestCode) {
-            COLOR_REQUEST_CODE_TOOLBAR ->
-                setToolbarColor(color)
-            COLOR_REQUEST_CODE_SECONDARY_TOOLBAR -> {
-                secondaryToolbarColor = color
-                binding.secondaryToolbarColorSample.setBackgroundColor(color)
-            }
-            COLOR_REQUEST_CODE_NAVIGATION_BAR -> {
-                navigationBarColor = color
-                binding.navigationBarColorSample.setBackgroundColor(color)
-            }
-            COLOR_REQUEST_CODE_TOOLBAR_SCHEME ->
-                setToolbarColorScheme(color)
-            COLOR_REQUEST_CODE_SECONDARY_TOOLBAR_SCHEME -> {
-                secondaryToolbarColorScheme = color
-                binding.secondaryToolbarColorSchemeSample.setBackgroundColor(color)
-            }
-            COLOR_REQUEST_CODE_NAVIGATION_BAR_SCHEME -> {
-                navigationBarColorScheme = color
-                binding.navigationBarColorSchemeSample.setBackgroundColor(color)
-            }
-        }
-    }
-
     @SuppressLint("SetTextI18n")
     private fun setToolbarColor(color: Int) {
         toolbarColor = color
@@ -351,12 +347,20 @@ class LauncherActivity : AppCompatActivity(), ColorChooserDialog.Callback {
         Bundle().also { it.putParcelable(CustomTabsService.KEY_URL, uri) }
 
     companion object {
-        private const val COLOR_REQUEST_CODE_TOOLBAR = 1
-        private const val COLOR_REQUEST_CODE_SECONDARY_TOOLBAR = 2
-        private const val COLOR_REQUEST_CODE_NAVIGATION_BAR = 3
-        private const val COLOR_REQUEST_CODE_TOOLBAR_SCHEME = 4
-        private const val COLOR_REQUEST_CODE_SECONDARY_TOOLBAR_SCHEME = 5
-        private const val COLOR_REQUEST_CODE_NAVIGATION_BAR_SCHEME = 6
+        private const val PREFIX = "LauncherActivity"
+        private const val REQUEST_KEY_TOOLBAR =
+            PREFIX + "REQUEST_KEY_TOOLBAR"
+        private const val REQUEST_KEY_SECONDARY_TOOLBAR =
+            PREFIX + "REQUEST_KEY_SECONDARY_TOOLBAR"
+        private const val REQUEST_KEY_NAVIGATION_BAR =
+            PREFIX + "REQUEST_KEY_NAVIGATION_BAR"
+        private const val REQUEST_KEY_TOOLBAR_SCHEME =
+            PREFIX + "REQUEST_KEY_TOOLBAR_SCHEME"
+        private const val REQUEST_KEY_SECONDARY_TOOLBAR_SCHEME =
+            PREFIX + "REQUEST_KEY_SECONDARY_TOOLBAR_SCHEME"
+        private const val REQUEST_KEY_NAVIGATION_BAR_SCHEME =
+            PREFIX + "REQUEST_KEY_NAVIGATION_BAR_SCHEME"
+
         private const val DEFAULT_URL = "https://cs.android.com/"
         private const val SECOND_URL = "https://developer.android.com/"
         private const val EXTRA_PACKAGE_NAME = "EXTRA_PACKAGE_NAME"
