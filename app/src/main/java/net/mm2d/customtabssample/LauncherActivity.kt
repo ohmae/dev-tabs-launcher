@@ -59,9 +59,7 @@ class LauncherActivity : AppCompatActivity() {
         }
         binding.toolbarColorSample.setOnClickListener {
             ColorChooserDialog.show(
-                this,
-                REQUEST_KEY_TOOLBAR,
-                toolbarColor
+                this, REQUEST_KEY_TOOLBAR, toolbarColor
             )
         }
         binding.secondaryToolbarColorSample.setBackgroundColor(secondaryToolbarColor)
@@ -71,9 +69,7 @@ class LauncherActivity : AppCompatActivity() {
         }
         binding.secondaryToolbarColorSample.setOnClickListener {
             ColorChooserDialog.show(
-                this,
-                REQUEST_KEY_SECONDARY_TOOLBAR,
-                secondaryToolbarColor
+                this, REQUEST_KEY_SECONDARY_TOOLBAR, secondaryToolbarColor
             )
         }
         binding.navigationBarColorSample.setBackgroundColor(navigationBarColor)
@@ -83,9 +79,7 @@ class LauncherActivity : AppCompatActivity() {
         }
         binding.navigationBarColorSample.setOnClickListener {
             ColorChooserDialog.show(
-                this,
-                REQUEST_KEY_NAVIGATION_BAR,
-                navigationBarColor
+                this, REQUEST_KEY_NAVIGATION_BAR, navigationBarColor
             )
         }
         setToolbarColorScheme(toolbarColorScheme)
@@ -94,9 +88,7 @@ class LauncherActivity : AppCompatActivity() {
         }
         binding.toolbarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
-                this,
-                REQUEST_KEY_TOOLBAR_SCHEME,
-                toolbarColorScheme
+                this, REQUEST_KEY_TOOLBAR_SCHEME, toolbarColorScheme
             )
         }
         binding.secondaryToolbarColorSchemeSample.setBackgroundColor(secondaryToolbarColorScheme)
@@ -106,9 +98,7 @@ class LauncherActivity : AppCompatActivity() {
         }
         binding.secondaryToolbarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
-                this,
-                REQUEST_KEY_SECONDARY_TOOLBAR_SCHEME,
-                secondaryToolbarColorScheme
+                this, REQUEST_KEY_SECONDARY_TOOLBAR_SCHEME, secondaryToolbarColorScheme
             )
         }
         binding.navigationBarColorSchemeSample.setBackgroundColor(navigationBarColorScheme)
@@ -118,9 +108,7 @@ class LauncherActivity : AppCompatActivity() {
         }
         binding.navigationBarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
-                this,
-                REQUEST_KEY_NAVIGATION_BAR_SCHEME,
-                navigationBarColorScheme
+                this, REQUEST_KEY_NAVIGATION_BAR_SCHEME, navigationBarColorScheme
             )
         }
         CustomTabsHelper.bind(this, packageName)
@@ -162,19 +150,21 @@ class LauncherActivity : AppCompatActivity() {
     }
 
     private fun setUpCustomTabsIntent(builder: CustomTabsIntent.Builder) {
-        if (binding.toolbarColor.isChecked) {
-            builder.setToolbarColor(toolbarColor)
-        }
-        if (binding.secondaryToolbarColor.isChecked) {
-            builder.setSecondaryToolbarColor(secondaryToolbarColor)
-        }
-        if (binding.navigationBarColor.isChecked) {
-            builder.setNavigationBarColor(navigationBarColor)
-        }
+        builder.setDefaultColorSchemeParams(
+            CustomTabColorSchemeParams.Builder().also {
+                if (binding.toolbarColor.isChecked) {
+                    it.setToolbarColor(toolbarColor)
+                }
+                if (binding.secondaryToolbarColor.isChecked) {
+                    it.setSecondaryToolbarColor(secondaryToolbarColor)
+                }
+                if (binding.navigationBarColor.isChecked) {
+                    it.setNavigationBarColor(navigationBarColor)
+                }
+            }.build()
+        )
         builder.setShowTitle(binding.showTitle.isChecked)
-        if (binding.urlBarHiding.isChecked) {
-            builder.enableUrlBarHiding()
-        }
+        builder.setUrlBarHidingEnabled(binding.urlBarHiding.isChecked)
         if (binding.colorScheme.isChecked) {
             builder.setColorScheme(
                 when {
