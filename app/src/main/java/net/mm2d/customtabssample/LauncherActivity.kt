@@ -364,8 +364,8 @@ class LauncherActivity : AppCompatActivity() {
         private const val REQUEST_CODE_TOOLBAR_ITEM3 = 104
         private const val REQUEST_CODE_TOOLBAR_ITEM4 = 105
         private const val REQUEST_CODE_SECONDARY_TOOLBAR = 106
-        private val FLAGS = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        private val FLAGS = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
         } else {
             PendingIntent.FLAG_UPDATE_CURRENT
         }
