@@ -54,7 +54,7 @@ class LauncherActivity : AppCompatActivity() {
         binding.launchButton.setOnClickListener { launch() }
         toolbarColor = ContextCompat.getColor(this, R.color.colorAccent)
         setToolbarColor(toolbarColor)
-        ColorChooserDialog.registerListener(REQUEST_KEY_TOOLBAR, this) {
+        ColorChooserDialog.registerListener(this, REQUEST_KEY_TOOLBAR) {
             setToolbarColor(it)
         }
         binding.toolbarColorSample.setOnClickListener {
@@ -63,7 +63,7 @@ class LauncherActivity : AppCompatActivity() {
             )
         }
         binding.secondaryToolbarColorSample.setBackgroundColor(secondaryToolbarColor)
-        ColorChooserDialog.registerListener(REQUEST_KEY_SECONDARY_TOOLBAR, this) {
+        ColorChooserDialog.registerListener(this, REQUEST_KEY_SECONDARY_TOOLBAR) {
             secondaryToolbarColor = it
             binding.secondaryToolbarColorSample.setBackgroundColor(it)
         }
@@ -73,7 +73,7 @@ class LauncherActivity : AppCompatActivity() {
             )
         }
         binding.navigationBarColorSample.setBackgroundColor(navigationBarColor)
-        ColorChooserDialog.registerListener(REQUEST_KEY_NAVIGATION_BAR, this) {
+        ColorChooserDialog.registerListener(this, REQUEST_KEY_NAVIGATION_BAR) {
             navigationBarColor = it
             binding.navigationBarColorSample.setBackgroundColor(it)
         }
@@ -83,7 +83,7 @@ class LauncherActivity : AppCompatActivity() {
             )
         }
         setToolbarColorScheme(toolbarColorScheme)
-        ColorChooserDialog.registerListener(REQUEST_KEY_TOOLBAR_SCHEME, this) {
+        ColorChooserDialog.registerListener(this, REQUEST_KEY_TOOLBAR_SCHEME) {
             setToolbarColorScheme(it)
         }
         binding.toolbarColorSchemeSample.setOnClickListener {
@@ -92,7 +92,7 @@ class LauncherActivity : AppCompatActivity() {
             )
         }
         binding.secondaryToolbarColorSchemeSample.setBackgroundColor(secondaryToolbarColorScheme)
-        ColorChooserDialog.registerListener(REQUEST_KEY_SECONDARY_TOOLBAR_SCHEME, this) {
+        ColorChooserDialog.registerListener(this, REQUEST_KEY_SECONDARY_TOOLBAR_SCHEME) {
             secondaryToolbarColorScheme = it
             binding.secondaryToolbarColorSchemeSample.setBackgroundColor(it)
         }
@@ -102,7 +102,7 @@ class LauncherActivity : AppCompatActivity() {
             )
         }
         binding.navigationBarColorSchemeSample.setBackgroundColor(navigationBarColorScheme)
-        ColorChooserDialog.registerListener(REQUEST_KEY_NAVIGATION_BAR_SCHEME, this) {
+        ColorChooserDialog.registerListener(this, REQUEST_KEY_NAVIGATION_BAR_SCHEME) {
             navigationBarColorScheme = it
             binding.navigationBarColorSchemeSample.setBackgroundColor(it)
         }
