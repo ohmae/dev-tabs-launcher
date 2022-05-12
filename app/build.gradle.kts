@@ -9,6 +9,7 @@ plugins {
 android {
     compileSdk = 31
 
+    namespace = "net.mm2d.customtabssample"
     defaultConfig {
         applicationId = "net.mm2d.customtabssample"
         minSdk = 21
@@ -43,7 +44,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.browser:browser:1.4.0")
-    implementation("com.google.android.material:material:1.5.0")
+    implementation("com.google.android.material:material:1.6.0")
     implementation("net.mm2d.color-chooser:color-chooser:0.4.1")
 }
 
