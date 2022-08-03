@@ -52,7 +52,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.browser:browser:1.4.0")
     implementation("com.google.android.material:material:1.6.1")
-    implementation("net.mm2d.color-chooser:color-chooser:0.4.1")
+    implementation("net.mm2d.color-chooser:color-chooser:0.5.0")
 }
 
 fun isStable(version: String): Boolean {
