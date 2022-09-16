@@ -54,58 +54,58 @@ class LauncherActivity : AppCompatActivity() {
         binding.launchButton.setOnClickListener { launch() }
         toolbarColor = ContextCompat.getColor(this, R.color.colorAccent)
         setToolbarColor(toolbarColor)
-        ColorChooserDialog.registerListener(this, REQUEST_KEY_TOOLBAR) {
+        ColorChooserDialog.registerListener(this, REQUEST_KEY_TOOLBAR, {
             setToolbarColor(it)
-        }
+        }, null)
         binding.toolbarColorSample.setOnClickListener {
             ColorChooserDialog.show(
                 this, REQUEST_KEY_TOOLBAR, toolbarColor
             )
         }
         binding.secondaryToolbarColorSample.setBackgroundColor(secondaryToolbarColor)
-        ColorChooserDialog.registerListener(this, REQUEST_KEY_SECONDARY_TOOLBAR) {
+        ColorChooserDialog.registerListener(this, REQUEST_KEY_SECONDARY_TOOLBAR, {
             secondaryToolbarColor = it
             binding.secondaryToolbarColorSample.setBackgroundColor(it)
-        }
+        }, null)
         binding.secondaryToolbarColorSample.setOnClickListener {
             ColorChooserDialog.show(
                 this, REQUEST_KEY_SECONDARY_TOOLBAR, secondaryToolbarColor
             )
         }
         binding.navigationBarColorSample.setBackgroundColor(navigationBarColor)
-        ColorChooserDialog.registerListener(this, REQUEST_KEY_NAVIGATION_BAR) {
+        ColorChooserDialog.registerListener(this, REQUEST_KEY_NAVIGATION_BAR, {
             navigationBarColor = it
             binding.navigationBarColorSample.setBackgroundColor(it)
-        }
+        }, null)
         binding.navigationBarColorSample.setOnClickListener {
             ColorChooserDialog.show(
                 this, REQUEST_KEY_NAVIGATION_BAR, navigationBarColor
             )
         }
         setToolbarColorScheme(toolbarColorScheme)
-        ColorChooserDialog.registerListener(this, REQUEST_KEY_TOOLBAR_SCHEME) {
+        ColorChooserDialog.registerListener(this, REQUEST_KEY_TOOLBAR_SCHEME, {
             setToolbarColorScheme(it)
-        }
+        }, null)
         binding.toolbarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
                 this, REQUEST_KEY_TOOLBAR_SCHEME, toolbarColorScheme
             )
         }
         binding.secondaryToolbarColorSchemeSample.setBackgroundColor(secondaryToolbarColorScheme)
-        ColorChooserDialog.registerListener(this, REQUEST_KEY_SECONDARY_TOOLBAR_SCHEME) {
+        ColorChooserDialog.registerListener(this, REQUEST_KEY_SECONDARY_TOOLBAR_SCHEME, {
             secondaryToolbarColorScheme = it
             binding.secondaryToolbarColorSchemeSample.setBackgroundColor(it)
-        }
+        }, null)
         binding.secondaryToolbarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
                 this, REQUEST_KEY_SECONDARY_TOOLBAR_SCHEME, secondaryToolbarColorScheme
             )
         }
         binding.navigationBarColorSchemeSample.setBackgroundColor(navigationBarColorScheme)
-        ColorChooserDialog.registerListener(this, REQUEST_KEY_NAVIGATION_BAR_SCHEME) {
+        ColorChooserDialog.registerListener(this, REQUEST_KEY_NAVIGATION_BAR_SCHEME, {
             navigationBarColorScheme = it
             binding.navigationBarColorSchemeSample.setBackgroundColor(it)
-        }
+        }, null)
         binding.navigationBarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
                 this, REQUEST_KEY_NAVIGATION_BAR_SCHEME, navigationBarColorScheme
