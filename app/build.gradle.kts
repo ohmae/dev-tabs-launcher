@@ -7,13 +7,13 @@ plugins {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 33
 
     namespace = "net.mm2d.customtabssample"
     defaultConfig {
         applicationId = "net.mm2d.customtabssample"
         minSdk = 21
-        targetSdk = 31
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
     }
