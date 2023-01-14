@@ -20,7 +20,7 @@ android {
     buildTypes {
         debug {
             isDebuggable = true
-            isTestCoverageEnabled = true
+            enableAndroidTestCoverage = true
         }
         release {
             isMinifyEnabled = false
@@ -46,13 +46,13 @@ android {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("androidx.appcompat:appcompat:1.6.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.browser:browser:1.4.0")
     implementation("com.google.android.material:material:1.7.0")
-    implementation("net.mm2d.color-chooser:color-chooser:0.5.2")
+    implementation("net.mm2d.color-chooser:color-chooser:0.6.0")
 }
 
 fun isStable(version: String): Boolean {
