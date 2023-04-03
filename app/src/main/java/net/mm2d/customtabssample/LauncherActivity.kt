@@ -17,6 +17,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.RemoteViews
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -110,6 +111,13 @@ class LauncherActivity : AppCompatActivity() {
             ColorChooserDialog.show(
                 this, REQUEST_KEY_NAVIGATION_BAR_SCHEME, navigationBarColorScheme
             )
+        }
+        binding.partialCustomTabBehavior.adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.resize_behavior,
+            android.R.layout.simple_spinner_item
+        ).also {
+            it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
         CustomTabsHelper.bind(this, packageName)
     }
@@ -297,6 +305,12 @@ class LauncherActivity : AppCompatActivity() {
                     },
                     FLAGS
                 )
+            )
+        }
+        if (binding.partialCustomTab.isChecked) {
+            builder.setInitialActivityHeightPx(
+                resources.getDimensionPixelSize(R.dimen.initial_activity_height),
+                binding.partialCustomTabBehavior.selectedItemPosition.coerceIn(0..2)
             )
         }
     }

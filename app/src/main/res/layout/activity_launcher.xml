@@ -744,6 +744,31 @@
                 </FrameLayout>
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/partial_custom_tab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="Partial Custom Tab"
+                    android:textAppearance="@style/caption"
+                    />
+
+                <Spinner
+                    android:id="@+id/partial_custom_tab_behavior"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
