@@ -33,7 +33,7 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
             bound = CustomTabsClient.bindCustomTabsService(
                 context.applicationContext,
                 packageName,
-                this
+                this,
             )
         }
     }
@@ -80,7 +80,7 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
                 relation: Int,
                 requestedOrigin: Uri,
                 result: Boolean,
-                extras: Bundle?
+                extras: Bundle?,
             ) {
                 extras?.containsKey("")
                 Log.e("XXXX", "onRelationshipValidationResult: $relation $requestedOrigin $result $extras")

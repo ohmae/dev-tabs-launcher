@@ -60,7 +60,9 @@ class LauncherActivity : AppCompatActivity() {
         }, null)
         binding.toolbarColorSample.setOnClickListener {
             ColorChooserDialog.show(
-                this, REQUEST_KEY_TOOLBAR, toolbarColor
+                this,
+                REQUEST_KEY_TOOLBAR,
+                toolbarColor,
             )
         }
         binding.secondaryToolbarColorSample.setBackgroundColor(secondaryToolbarColor)
@@ -70,7 +72,9 @@ class LauncherActivity : AppCompatActivity() {
         }, null)
         binding.secondaryToolbarColorSample.setOnClickListener {
             ColorChooserDialog.show(
-                this, REQUEST_KEY_SECONDARY_TOOLBAR, secondaryToolbarColor
+                this,
+                REQUEST_KEY_SECONDARY_TOOLBAR,
+                secondaryToolbarColor,
             )
         }
         binding.navigationBarColorSample.setBackgroundColor(navigationBarColor)
@@ -80,7 +84,9 @@ class LauncherActivity : AppCompatActivity() {
         }, null)
         binding.navigationBarColorSample.setOnClickListener {
             ColorChooserDialog.show(
-                this, REQUEST_KEY_NAVIGATION_BAR, navigationBarColor
+                this,
+                REQUEST_KEY_NAVIGATION_BAR,
+                navigationBarColor,
             )
         }
         setToolbarColorScheme(toolbarColorScheme)
@@ -89,7 +95,9 @@ class LauncherActivity : AppCompatActivity() {
         }, null)
         binding.toolbarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
-                this, REQUEST_KEY_TOOLBAR_SCHEME, toolbarColorScheme
+                this,
+                REQUEST_KEY_TOOLBAR_SCHEME,
+                toolbarColorScheme,
             )
         }
         binding.secondaryToolbarColorSchemeSample.setBackgroundColor(secondaryToolbarColorScheme)
@@ -99,7 +107,9 @@ class LauncherActivity : AppCompatActivity() {
         }, null)
         binding.secondaryToolbarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
-                this, REQUEST_KEY_SECONDARY_TOOLBAR_SCHEME, secondaryToolbarColorScheme
+                this,
+                REQUEST_KEY_SECONDARY_TOOLBAR_SCHEME,
+                secondaryToolbarColorScheme,
             )
         }
         binding.navigationBarColorSchemeSample.setBackgroundColor(navigationBarColorScheme)
@@ -109,13 +119,15 @@ class LauncherActivity : AppCompatActivity() {
         }, null)
         binding.navigationBarColorSchemeSample.setOnClickListener {
             ColorChooserDialog.show(
-                this, REQUEST_KEY_NAVIGATION_BAR_SCHEME, navigationBarColorScheme
+                this,
+                REQUEST_KEY_NAVIGATION_BAR_SCHEME,
+                navigationBarColorScheme,
             )
         }
         binding.partialCustomTabBehavior.adapter = ArrayAdapter.createFromResource(
             this,
             R.array.resize_behavior,
-            android.R.layout.simple_spinner_item
+            android.R.layout.simple_spinner_item,
         ).also {
             it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
@@ -169,7 +181,7 @@ class LauncherActivity : AppCompatActivity() {
                 if (binding.navigationBarColor.isChecked) {
                     it.setNavigationBarColor(navigationBarColor)
                 }
-            }.build()
+            }.build(),
         )
         builder.setShowTitle(binding.showTitle.isChecked)
         builder.setUrlBarHidingEnabled(binding.urlBarHiding.isChecked)
@@ -179,7 +191,7 @@ class LauncherActivity : AppCompatActivity() {
                     binding.colorSchemeLight.isChecked -> CustomTabsIntent.COLOR_SCHEME_LIGHT
                     binding.colorSchemeDark.isChecked -> CustomTabsIntent.COLOR_SCHEME_DARK
                     else -> CustomTabsIntent.COLOR_SCHEME_SYSTEM
-                }
+                },
             )
         }
         if (binding.colorSchemeParams.isChecked) {
@@ -220,9 +232,9 @@ class LauncherActivity : AppCompatActivity() {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, "Account")
                     },
-                    FLAGS
+                    FLAGS,
                 ),
-                true
+                true,
             )
         }
         if (binding.menuItem.isChecked) {
@@ -234,8 +246,8 @@ class LauncherActivity : AppCompatActivity() {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, "MenuItem")
                     },
-                    FLAGS
-                )
+                    FLAGS,
+                ),
             )
         }
         if (binding.toolbarItem.isChecked) {
@@ -249,8 +261,8 @@ class LauncherActivity : AppCompatActivity() {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, "button1")
                     },
-                    FLAGS
-                )
+                    FLAGS,
+                ),
             )
             builder.addToolbarItem(
                 R.id.button2,
@@ -262,8 +274,8 @@ class LauncherActivity : AppCompatActivity() {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, "button2")
                     },
-                    FLAGS
-                )
+                    FLAGS,
+                ),
             )
             builder.addToolbarItem(
                 R.id.button3,
@@ -275,8 +287,8 @@ class LauncherActivity : AppCompatActivity() {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, "button3")
                     },
-                    FLAGS
-                )
+                    FLAGS,
+                ),
             )
             builder.addToolbarItem(
                 R.id.button4,
@@ -288,8 +300,8 @@ class LauncherActivity : AppCompatActivity() {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, "button4")
                     },
-                    FLAGS
-                )
+                    FLAGS,
+                ),
             )
         }
         if (binding.secondaryToolbar.isChecked) {
@@ -303,14 +315,14 @@ class LauncherActivity : AppCompatActivity() {
                     Intent(this, LauncherActivity::class.java).also {
                         it.putExtra(EXTRA_MESSAGE, MESSAGE_SECONDARY_TOOLBAR)
                     },
-                    FLAGS
-                )
+                    FLAGS,
+                ),
             )
         }
         if (binding.partialCustomTab.isChecked) {
             builder.setInitialActivityHeightPx(
                 resources.getDimensionPixelSize(R.dimen.initial_activity_height),
-                binding.partialCustomTabBehavior.selectedItemPosition.coerceIn(0..2)
+                binding.partialCustomTabBehavior.selectedItemPosition.coerceIn(0..2),
             )
         }
     }
@@ -324,7 +336,7 @@ class LauncherActivity : AppCompatActivity() {
         binding.toolbarColorSample.setBackgroundColor(color)
         binding.toolbarColorDescription.text =
             "W: " + "%.2f".format(color.contrastToWhiteForeground()) + "\n" +
-                    "B: " + "%.2f".format(color.contrastToBlackForeground())
+            "B: " + "%.2f".format(color.contrastToBlackForeground())
     }
 
     @SuppressLint("SetTextI18n")
@@ -333,7 +345,7 @@ class LauncherActivity : AppCompatActivity() {
         binding.toolbarColorSchemeSample.setBackgroundColor(color)
         binding.toolbarColorSchemeDescription.text =
             "W: " + "%.2f".format(color.contrastToWhiteForeground()) + "\n" +
-                    "B: " + "%.2f".format(color.contrastToBlackForeground())
+            "B: " + "%.2f".format(color.contrastToBlackForeground())
     }
 
     private fun mayLaunchUrl() {
@@ -343,7 +355,7 @@ class LauncherActivity : AppCompatActivity() {
         CustomTabsHelper.session?.mayLaunchUrl(
             Uri.parse(binding.editText.text.toString()),
             null,
-            urlList
+            urlList,
         )
     }
 

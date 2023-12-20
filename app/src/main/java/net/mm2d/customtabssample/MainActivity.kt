@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 PackageInfo(
                     it.loadIcon(pm),
                     it.loadLabel(pm).toString(),
-                    it.packageName
+                    it.packageName,
                 )
             }
     }
@@ -66,13 +66,13 @@ class MainActivity : AppCompatActivity() {
     private data class PackageInfo(
         val drawable: Drawable?,
         val label: String,
-        val packageName: String
+        val packageName: String,
     )
 
     private class PackageAdapter(
         private val inflater: LayoutInflater,
         private val list: List<PackageInfo>,
-        private val onClick: (info: PackageInfo) -> Unit
+        private val onClick: (info: PackageInfo) -> Unit,
     ) : RecyclerView.Adapter<PackageViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PackageViewHolder =
             PackageViewHolder(ItemPackageBinding.inflate(inflater, parent, false))
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private class PackageViewHolder(
-        val binding: ItemPackageBinding
+        val binding: ItemPackageBinding,
     ) : RecyclerView.ViewHolder(binding.root)
 
     companion object {
