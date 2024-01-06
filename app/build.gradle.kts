@@ -43,6 +43,7 @@ android {
     lint {
         abortOnError = true
     }
+    @Suppress("UnstableApiUsage")
     testOptions {
         unitTests.isIncludeAndroidResources = true
     }
