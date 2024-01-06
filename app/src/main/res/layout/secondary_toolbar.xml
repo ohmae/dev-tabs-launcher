@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
@@ -11,11 +12,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:drawableTop="@drawable/ic_1"
         android:gravity="center"
         android:padding="8dp"
         android:text="button1"
         android:textColor="@android:color/black"
+        app:drawableTopCompat="@drawable/ic_1"
         />
 
     <TextView
@@ -23,11 +24,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:drawableTop="@drawable/ic_2"
         android:gravity="center"
         android:padding="8dp"
         android:text="button2"
         android:textColor="@android:color/black"
+        app:drawableTopCompat="@drawable/ic_2"
         />
 
     <TextView
@@ -35,11 +36,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:drawableTop="@drawable/ic_3"
         android:gravity="center"
         android:padding="8dp"
         android:text="button3"
         android:textColor="@android:color/black"
+        app:drawableTopCompat="@drawable/ic_3"
         />
 
     <TextView
@@ -47,10 +48,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:drawableTop="@drawable/ic_4"
         android:gravity="center"
         android:padding="8dp"
         android:text="button4"
         android:textColor="@android:color/black"
+        app:drawableTopCompat="@drawable/ic_4"
         />
 </LinearLayout>
