@@ -5,7 +5,7 @@
  * http://opensource.org/licenses/MIT
  */
 
-package net.mm2d.customtabssample
+package net.mm2d.dev.tabs.launcher
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -18,8 +18,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import net.mm2d.customtabssample.databinding.ActivityMainBinding
-import net.mm2d.customtabssample.databinding.ItemPackageBinding
+import net.mm2d.dev.tabs.launcher.databinding.ActivityMainBinding
+import net.mm2d.dev.tabs.launcher.databinding.ItemPackageBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

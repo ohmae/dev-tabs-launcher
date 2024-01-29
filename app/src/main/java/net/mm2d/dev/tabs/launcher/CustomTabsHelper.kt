@@ -5,13 +5,12 @@
  * http://opensource.org/licenses/MIT
  */
 
-package net.mm2d.customtabssample
+package net.mm2d.dev.tabs.launcher
 
 import android.content.ComponentName
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.browser.customtabs.CustomTabsCallback
 import androidx.browser.customtabs.CustomTabsClient
 import androidx.browser.customtabs.CustomTabsServiceConnection
@@ -52,28 +51,28 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
         session = client.newSession(object : CustomTabsCallback() {
             override fun onNavigationEvent(navigationEvent: Int, extras: Bundle?) {
                 extras?.containsKey("")
-                Log.e("XXXX", "onNavigationEvent: $navigationEvent $extras")
+                Toaster.show("onNavigationEvent: $navigationEvent $extras")
             }
 
             override fun extraCallback(callbackName: String, args: Bundle?) {
                 args?.containsKey("")
-                Log.e("XXXX", "extraCallback: $callbackName $args")
+                Toaster.show("extraCallback: $callbackName $args")
             }
 
             override fun extraCallbackWithResult(callbackName: String, args: Bundle?): Bundle? {
                 args?.containsKey("")
-                Log.e("XXXX", "extraCallbackWithResult: $callbackName $args")
+                Toaster.show("extraCallbackWithResult: $callbackName $args")
                 return null
             }
 
             override fun onMessageChannelReady(extras: Bundle?) {
                 extras?.containsKey("")
-                Log.e("XXXX", "onMessageChannelReady: $extras")
+                Toaster.show("onMessageChannelReady: $extras")
             }
 
             override fun onPostMessage(message: String, extras: Bundle?) {
                 extras?.containsKey("")
-                Log.e("XXXX", "onPostMessage: $message $extras")
+                Toaster.show("onPostMessage: $message $extras")
             }
 
             override fun onRelationshipValidationResult(
@@ -83,7 +82,7 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
                 extras: Bundle?,
             ) {
                 extras?.containsKey("")
-                Log.e("XXXX", "onRelationshipValidationResult: $relation $requestedOrigin $result $extras")
+                Toaster.show("onRelationshipValidationResult: $relation $requestedOrigin $result $extras")
             }
         })
     }

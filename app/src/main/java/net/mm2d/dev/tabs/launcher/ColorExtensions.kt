@@ -5,7 +5,7 @@
  * http://opensource.org/licenses/MIT
  */
 
-package net.mm2d.customtabssample
+package net.mm2d.dev.tabs.launcher
 
 import android.graphics.Color
 import kotlin.math.pow

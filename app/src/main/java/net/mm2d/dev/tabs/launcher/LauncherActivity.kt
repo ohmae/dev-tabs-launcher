@@ -5,7 +5,7 @@
  * http://opensource.org/licenses/MIT
  */
 
-package net.mm2d.customtabssample
+package net.mm2d.dev.tabs.launcher
 
 import android.annotation.SuppressLint
 import android.app.PendingIntent
@@ -27,7 +27,7 @@ import androidx.browser.customtabs.CustomTabsService
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import net.mm2d.color.chooser.ColorChooserDialog
-import net.mm2d.customtabssample.databinding.ActivityLauncherBinding
+import net.mm2d.dev.tabs.launcher.databinding.ActivityLauncherBinding
 
 class LauncherActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLauncherBinding
@@ -377,8 +377,8 @@ class LauncherActivity : AppCompatActivity() {
         private const val REQUEST_KEY_NAVIGATION_BAR_SCHEME =
             PREFIX + "REQUEST_KEY_NAVIGATION_BAR_SCHEME"
 
-        private const val DEFAULT_URL = "https://cs.android.com/"
-        private const val SECOND_URL = "https://developer.android.com/"
+        private const val DEFAULT_URL = "https://www.bing.com/"
+        private const val SECOND_URL = "https://www.bing.com/"
         private const val EXTRA_PACKAGE_NAME = "EXTRA_PACKAGE_NAME"
         private const val EXTRA_LABEL = "EXTRA_LABEL"
         private const val EXTRA_MESSAGE = "EXTRA_MESSAGE"

@@ -9,9 +9,9 @@ plugins {
 android {
     compileSdk = 34
 
-    namespace = "net.mm2d.customtabssample"
+    namespace = "net.mm2d.dev.tabs.launcher"
     defaultConfig {
-        applicationId = "net.mm2d.customtabssample"
+        applicationId = "net.mm2d.dev.tabs.launcher"
         minSdk = 21
         targetSdk = 34
         versionCode = 1
