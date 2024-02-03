@@ -11,7 +11,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -53,11 +52,7 @@ class MainActivity : AppCompatActivity() {
     private fun getBrowserPackages(pm: PackageManager): Set<String> {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com/"))
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
-        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PackageManager.MATCH_ALL
-        } else {
-            0
-        }
+        val flags = PackageManager.MATCH_ALL
         return pm.queryIntentActivities(intent, flags)
             .mapNotNull { it.activityInfo?.packageName }
             .toSet()

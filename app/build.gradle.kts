@@ -6,16 +6,22 @@ plugins {
     id("com.github.ben-manes.versions")
 }
 
+val applicationName = "dev-tabs-launcher"
+val versionMajor = 0
+val versionMinor = 0
+val versionPatch = 1
+
 android {
     compileSdk = 34
 
     namespace = "net.mm2d.dev.tabs.launcher"
     defaultConfig {
         applicationId = "net.mm2d.dev.tabs.launcher"
-        minSdk = 21
+        minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName = "$versionMajor.$versionMinor.$versionPatch"
+        base.archivesName.set("$applicationName-$versionName")
     }
     buildTypes {
         debug {

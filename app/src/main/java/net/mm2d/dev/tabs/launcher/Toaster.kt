@@ -1,6 +1,7 @@
 package net.mm2d.dev.tabs.launcher
 
 import android.app.Application
+import android.widget.Toast
 
 object Toaster {
     private lateinit var application: Application
@@ -10,6 +11,6 @@ object Toaster {
     }
 
     fun show(message: String) {
-        android.widget.Toast.makeText(application, message, android.widget.Toast.LENGTH_SHORT).show()
+        Toast.makeText(application, message, Toast.LENGTH_SHORT).show()
     }
 }
