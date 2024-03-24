@@ -1,9 +1,9 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("com.github.ben-manes.versions")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.gradleVersions)
 }
 
 val applicationName = "dev-tabs-launcher"
@@ -33,15 +33,12 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
-    kotlin {
-        jvmToolchain(11)
-    }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
     buildFeatures {
         viewBinding = true
@@ -56,13 +53,17 @@ android {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.browser:browser:1.7.0")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("net.mm2d.color-chooser:color-chooser:0.7.2")
+    implementation(libs.androidxCore)
+    implementation(libs.androidxAppCompat)
+    implementation(libs.androidxActivity)
+    implementation(libs.androidxBrowser)
+    implementation(libs.androidxConstraintLayout)
+    implementation(libs.androidxRecyclerView)
+    implementation(libs.material)
+    implementation(libs.colorChooser)
+
+    debugImplementation(libs.leakcanary)
+    releaseImplementation(libs.bundles.flipper)
 }
 
 fun isStable(version: String): Boolean {

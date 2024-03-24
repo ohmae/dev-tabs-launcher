@@ -15,6 +15,9 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 /.idea/jarRepositories.xml
+/.idea/copilot
+/.idea/sonarlint
+/.idea/appInsightsSettings.xml
 .DS_Store
 /build
 /captures
