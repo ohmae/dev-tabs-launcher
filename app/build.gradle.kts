@@ -74,5 +74,5 @@ fun isStable(version: String): Boolean {
 }
 
 tasks.named<DependencyUpdatesTask>("dependencyUpdates").configure {
-    rejectVersionIf { !isStable(candidate.version) }
+    rejectVersionIf { !isStable(candidate.version) && isStable(currentVersion) }
 }
