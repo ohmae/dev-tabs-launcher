@@ -20,11 +20,14 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.RemoteViews
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
 import net.mm2d.color.chooser.ColorChooserDialog
 import net.mm2d.dev.tabs.launcher.databinding.ActivityLauncherBinding
@@ -40,9 +43,15 @@ class LauncherActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         binding = ActivityLauncherBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
         val packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME)!!
         supportActionBar?.let {
             it.title = intent.getStringExtra(EXTRA_LABEL)
@@ -336,7 +345,7 @@ class LauncherActivity : AppCompatActivity() {
         binding.toolbarColorSample.setBackgroundColor(color)
         binding.toolbarColorDescription.text =
             "W: " + "%.2f".format(color.contrastToWhiteForeground()) + "\n" +
-            "B: " + "%.2f".format(color.contrastToBlackForeground())
+                "B: " + "%.2f".format(color.contrastToBlackForeground())
     }
 
     @SuppressLint("SetTextI18n")
@@ -345,7 +354,7 @@ class LauncherActivity : AppCompatActivity() {
         binding.toolbarColorSchemeSample.setBackgroundColor(color)
         binding.toolbarColorSchemeDescription.text =
             "W: " + "%.2f".format(color.contrastToWhiteForeground()) + "\n" +
-            "B: " + "%.2f".format(color.contrastToBlackForeground())
+                "B: " + "%.2f".format(color.contrastToBlackForeground())
     }
 
     private fun mayLaunchUrl() {
