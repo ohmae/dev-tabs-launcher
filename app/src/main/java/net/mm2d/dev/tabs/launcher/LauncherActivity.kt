@@ -345,7 +345,7 @@ class LauncherActivity : AppCompatActivity() {
         binding.toolbarColorSample.setBackgroundColor(color)
         binding.toolbarColorDescription.text =
             "W: " + "%.2f".format(color.contrastToWhiteForeground()) + "\n" +
-                "B: " + "%.2f".format(color.contrastToBlackForeground())
+            "B: " + "%.2f".format(color.contrastToBlackForeground())
     }
 
     @SuppressLint("SetTextI18n")
@@ -354,7 +354,7 @@ class LauncherActivity : AppCompatActivity() {
         binding.toolbarColorSchemeSample.setBackgroundColor(color)
         binding.toolbarColorSchemeDescription.text =
             "W: " + "%.2f".format(color.contrastToWhiteForeground()) + "\n" +
-                "B: " + "%.2f".format(color.contrastToBlackForeground())
+            "B: " + "%.2f".format(color.contrastToBlackForeground())
     }
 
     private fun mayLaunchUrl() {

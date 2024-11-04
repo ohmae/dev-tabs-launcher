@@ -13,13 +13,13 @@ val versionMinor = 0
 val versionPatch = 4
 
 android {
-    compileSdk = 34
+    compileSdk = 35
 
     namespace = "net.mm2d.dev.tabs.launcher"
     defaultConfig {
         applicationId = "net.mm2d.dev.tabs.launcher"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName = "$versionMajor.$versionMinor.$versionPatch"
         base.archivesName.set("$applicationName-$versionName")
@@ -42,6 +42,7 @@ android {
         compilerOptions {
             jvmTarget = JvmTarget.JVM_1_8
         }
+        jvmToolchain(17)
     }
     buildFeatures {
         viewBinding = true
