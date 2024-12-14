@@ -26,7 +26,10 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
     var packageName: String? = null
         private set
 
-    internal fun bind(context: Context, packageName: String) {
+    internal fun bind(
+        context: Context,
+        packageName: String,
+    ) {
         if (!bound) {
             this.packageName = packageName
             bound = CustomTabsClient.bindCustomTabsService(
@@ -37,7 +40,9 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
         }
     }
 
-    internal fun unbind(context: Context) {
+    internal fun unbind(
+        context: Context,
+    ) {
         if (bound) {
             context.applicationContext.unbindService(this)
             bound = false
@@ -46,31 +51,48 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
         }
     }
 
-    override fun onCustomTabsServiceConnected(name: ComponentName, client: CustomTabsClient) {
+    override fun onCustomTabsServiceConnected(
+        name: ComponentName,
+        client: CustomTabsClient,
+    ) {
         client.warmup(0)
         session = client.newSession(object : CustomTabsCallback() {
-            override fun onNavigationEvent(navigationEvent: Int, extras: Bundle?) {
+            override fun onNavigationEvent(
+                navigationEvent: Int,
+                extras: Bundle?,
+            ) {
                 extras?.containsKey("")
                 Toaster.show("onNavigationEvent: $navigationEvent $extras")
             }
 
-            override fun extraCallback(callbackName: String, args: Bundle?) {
+            override fun extraCallback(
+                callbackName: String,
+                args: Bundle?,
+            ) {
                 args?.containsKey("")
                 Toaster.show("extraCallback: $callbackName $args")
             }
 
-            override fun extraCallbackWithResult(callbackName: String, args: Bundle?): Bundle? {
+            override fun extraCallbackWithResult(
+                callbackName: String,
+                args: Bundle?,
+            ): Bundle? {
                 args?.containsKey("")
                 Toaster.show("extraCallbackWithResult: $callbackName $args")
                 return null
             }
 
-            override fun onMessageChannelReady(extras: Bundle?) {
+            override fun onMessageChannelReady(
+                extras: Bundle?,
+            ) {
                 extras?.containsKey("")
                 Toaster.show("onMessageChannelReady: $extras")
             }
 
-            override fun onPostMessage(message: String, extras: Bundle?) {
+            override fun onPostMessage(
+                message: String,
+                extras: Bundle?,
+            ) {
                 extras?.containsKey("")
                 Toaster.show("onPostMessage: $message $extras")
             }
@@ -87,7 +109,9 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
         })
     }
 
-    override fun onServiceDisconnected(name: ComponentName) {
+    override fun onServiceDisconnected(
+        name: ComponentName,
+    ) {
         session = null
     }
 }

@@ -26,7 +26,9 @@ import net.mm2d.dev.tabs.launcher.databinding.ItemPackageBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?,
+    ) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -58,7 +60,9 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    private fun getBrowserPackages(pm: PackageManager): Set<String> {
+    private fun getBrowserPackages(
+        pm: PackageManager,
+    ): Set<String> {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com/"))
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
         val flags = PackageManager.MATCH_ALL
@@ -78,12 +82,17 @@ class MainActivity : AppCompatActivity() {
         private val list: List<PackageInfo>,
         private val onClick: (info: PackageInfo) -> Unit,
     ) : RecyclerView.Adapter<PackageViewHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PackageViewHolder =
-            PackageViewHolder(ItemPackageBinding.inflate(inflater, parent, false))
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int,
+        ): PackageViewHolder = PackageViewHolder(ItemPackageBinding.inflate(inflater, parent, false))
 
         override fun getItemCount(): Int = list.size
 
-        override fun onBindViewHolder(holder: PackageViewHolder, position: Int) {
+        override fun onBindViewHolder(
+            holder: PackageViewHolder,
+            position: Int,
+        ) {
             val binding: ItemPackageBinding = holder.binding
             val info = list[position]
             binding.root.setOnClickListener { onClick(info) }

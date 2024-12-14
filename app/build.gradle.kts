@@ -70,7 +70,9 @@ dependencies {
     releaseImplementation(libs.bundles.flipper)
 }
 
-fun isStable(version: String): Boolean {
+fun isStable(
+    version: String,
+): Boolean {
     val versionUpperCase = version.uppercase()
     val hasStableKeyword = listOf("RELEASE", "FINAL", "GA").any { versionUpperCase.contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()

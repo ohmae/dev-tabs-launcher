@@ -41,7 +41,9 @@ class LauncherActivity : AppCompatActivity() {
     private var secondaryToolbarColorScheme: Int = Color.BLACK
     private var navigationBarColorScheme: Int = Color.BLACK
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?,
+    ) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityLauncherBinding.inflate(layoutInflater)
@@ -148,7 +150,9 @@ class LauncherActivity : AppCompatActivity() {
         CustomTabsHelper.unbind(this)
     }
 
-    override fun onNewIntent(intent: Intent) {
+    override fun onNewIntent(
+        intent: Intent,
+    ) {
         super.onNewIntent(intent)
         val message = intent.getStringExtra(EXTRA_MESSAGE)
         if (message.isNullOrEmpty()) return
@@ -178,7 +182,9 @@ class LauncherActivity : AppCompatActivity() {
         customTabsIntent.launchUrl(this, Uri.parse(binding.editText.text.toString()))
     }
 
-    private fun setUpCustomTabsIntent(builder: CustomTabsIntent.Builder) {
+    private fun setUpCustomTabsIntent(
+        builder: CustomTabsIntent.Builder,
+    ) {
         builder.setDefaultColorSchemeParams(
             CustomTabColorSchemeParams.Builder().also {
                 if (binding.toolbarColor.isChecked) {
@@ -336,11 +342,14 @@ class LauncherActivity : AppCompatActivity() {
         }
     }
 
-    private fun getBitmap(drawableRes: Int): Bitmap =
-        (ContextCompat.getDrawable(this, drawableRes) as BitmapDrawable).bitmap
+    private fun getBitmap(
+        drawableRes: Int,
+    ): Bitmap = (ContextCompat.getDrawable(this, drawableRes) as BitmapDrawable).bitmap
 
     @SuppressLint("SetTextI18n")
-    private fun setToolbarColor(color: Int) {
+    private fun setToolbarColor(
+        color: Int,
+    ) {
         toolbarColor = color
         binding.toolbarColorSample.setBackgroundColor(color)
         binding.toolbarColorDescription.text =
@@ -349,7 +358,9 @@ class LauncherActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setToolbarColorScheme(color: Int) {
+    private fun setToolbarColorScheme(
+        color: Int,
+    ) {
         toolbarColorScheme = color
         binding.toolbarColorSchemeSample.setBackgroundColor(color)
         binding.toolbarColorSchemeDescription.text =
@@ -368,8 +379,9 @@ class LauncherActivity : AppCompatActivity() {
         )
     }
 
-    private fun makeOtherLikelyBundle(uri: Uri): Bundle =
-        Bundle().also { it.putParcelable(CustomTabsService.KEY_URL, uri) }
+    private fun makeOtherLikelyBundle(
+        uri: Uri,
+    ): Bundle = Bundle().also { it.putParcelable(CustomTabsService.KEY_URL, uri) }
 
     companion object {
         private const val PREFIX = "LauncherActivity"
@@ -405,7 +417,11 @@ class LauncherActivity : AppCompatActivity() {
             PendingIntent.FLAG_UPDATE_CURRENT
         }
 
-        fun start(context: Context, packageName: String, label: String) {
+        fun start(
+            context: Context,
+            packageName: String,
+            label: String,
+        ) {
             Intent(context, LauncherActivity::class.java).also {
                 it.putExtra(EXTRA_PACKAGE_NAME, packageName)
                 it.putExtra(EXTRA_LABEL, label)

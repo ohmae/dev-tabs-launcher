@@ -9,14 +9,15 @@ package net.mm2d.dev.tabs.launcher
 
 import android.graphics.Color
 
-internal fun Int.contrastToWhiteForeground(): Float =
-    calculateContrast(this, Color.WHITE)
+internal fun Int.contrastToWhiteForeground(): Float = calculateContrast(this, Color.WHITE)
 
-internal fun Int.contrastToBlackForeground(): Float =
-    calculateContrast(this, Color.BLACK)
+internal fun Int.contrastToBlackForeground(): Float = calculateContrast(this, Color.BLACK)
 
 // https://www.w3.org/TR/WCAG20/#contrast-ratiodef
-private fun calculateContrast(color1: Int, color2: Int): Float {
+private fun calculateContrast(
+    color1: Int,
+    color2: Int,
+): Float {
     val l1 = Color.luminance(color1)
     val l2 = Color.luminance(color2)
     return if (l1 > l2) {

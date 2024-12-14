@@ -6,11 +6,15 @@ import android.widget.Toast
 object Toaster {
     private lateinit var application: Application
 
-    fun initialize(application: Application) {
+    fun initialize(
+        application: Application,
+    ) {
         this.application = application
     }
 
-    fun show(message: String) {
+    fun show(
+        message: String,
+    ) {
         Toast.makeText(application, message, Toast.LENGTH_SHORT).show()
     }
 }
