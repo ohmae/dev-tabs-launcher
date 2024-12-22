@@ -13,7 +13,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -22,10 +21,12 @@ import android.widget.RemoteViews
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
@@ -344,7 +345,7 @@ class LauncherActivity : AppCompatActivity() {
 
     private fun getBitmap(
         drawableRes: Int,
-    ): Bitmap = (ContextCompat.getDrawable(this, drawableRes) as BitmapDrawable).bitmap
+    ): Bitmap = AppCompatResources.getDrawable(this, drawableRes)!!.toBitmap()
 
     @SuppressLint("SetTextI18n")
     private fun setToolbarColor(
