@@ -1,5 +1,6 @@
 [versions]
 androidGradlePlugin = "8.9.2"
+desugar_jdk_libs = "2.1.5"
 kotlin = "2.1.20"
 gradleVersionsPlugin = "0.52.0"
 
@@ -28,6 +29,7 @@ androidxActivity = { group = "androidx.activity", name = "activity-ktx", version
 androidxBrowser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
 androidxConstraintLayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidxConstraintLayout" }
 androidxRecyclerView = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidxRecyclerView" }
+desugarJdkLibs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 colorChooser = { group = "net.mm2d.color-chooser", name = "color-chooser", version.ref = "colorChooser" }
 
