@@ -13,13 +13,13 @@ val versionMinor = 0
 val versionPatch = 4
 
 android {
-    compileSdk = 35
+    compileSdk = 36
 
     namespace = "net.mm2d.dev.tabs.launcher"
     defaultConfig {
         applicationId = "net.mm2d.dev.tabs.launcher"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName = "$versionMajor.$versionMinor.$versionPatch"
         base.archivesName.set("$applicationName-$versionName")
@@ -50,7 +50,6 @@ android {
     lint {
         abortOnError = true
     }
-    @Suppress("UnstableApiUsage")
     testOptions {
         unitTests.isIncludeAndroidResources = true
     }
