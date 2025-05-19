@@ -1,7 +1,7 @@
 [versions]
 androidGradlePlugin = "8.10.0"
 desugar_jdk_libs = "2.1.5"
-kotlin = "2.1.20"
+kotlin = "2.1.21"
 gradleVersionsPlugin = "0.52.0"
 
 androidxCore = "1.16.0"
@@ -15,8 +15,6 @@ colorChooser = "0.7.3"
 
 # debug
 leakcanary = "2.14"
-flipper = "0.273.0"
-soloader = "0.12.1"
 
 ktlint = "1.5.0"
 
@@ -35,10 +33,6 @@ colorChooser = { group = "net.mm2d.color-chooser", name = "color-chooser", versi
 
 # debug
 leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
-flipper = { group = "com.facebook.flipper", name = "flipper", version.ref = "flipper" }
-soloader = { group = "com.facebook.soloader", name = "soloader", version.ref = "soloader" }
-flipperNetwork = { group = "com.facebook.flipper", name = "flipper-network-plugin", version.ref = "flipper" }
-flipperLeakCanary2 = { group = "com.facebook.flipper", name = "flipper-leakcanary2-plugin", version.ref = "flipper" }
 
 ktlint = { group = "com.pinterest.ktlint", name = "ktlint-cli", version.ref = "ktlint" }
 
@@ -52,11 +46,5 @@ gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradleVe
 # for release
 
 [bundles]
-flipper = [
-    "flipper",
-    "soloader",
-    "flipperNetwork",
-    "flipperLeakCanary2"
-]
 
 # for release

@@ -68,7 +68,6 @@ dependencies {
     implementation(libs.colorChooser)
 
     debugImplementation(libs.leakcanary)
-    releaseImplementation(libs.bundles.flipper)
 }
 
 fun isStable(
