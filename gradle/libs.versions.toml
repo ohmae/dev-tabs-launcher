@@ -1,11 +1,11 @@
 [versions]
-androidGradlePlugin = "8.10.0"
+androidGradlePlugin = "8.11.0"
 desugar_jdk_libs = "2.1.5"
-kotlin = "2.1.21"
+kotlin = "2.2.0"
 gradleVersionsPlugin = "0.52.0"
 
 androidxCore = "1.16.0"
-androidxAppCompat = "1.7.0"
+androidxAppCompat = "1.7.1"
 androidxActivity = "1.10.1"
 androidxBrowser = "1.8.0"
 androidxConstraintLayout = "2.2.1"
@@ -16,7 +16,7 @@ colorChooser = "0.7.3"
 # debug
 leakcanary = "2.14"
 
-ktlint = "1.5.0"
+ktlint = "1.6.0"
 
 # for release
 
