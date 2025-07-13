@@ -35,7 +35,6 @@ android {
         }
     }
     compileOptions {
-        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -57,7 +56,6 @@ android {
 }
 
 dependencies {
-    coreLibraryDesugaring(libs.desugarJdkLibs)
     implementation(libs.androidxCore)
     implementation(libs.androidxAppCompat)
     implementation(libs.androidxActivity)
