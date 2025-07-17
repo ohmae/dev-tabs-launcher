@@ -15,7 +15,7 @@ colorChooser = "0.7.3"
 # debug
 leakcanary = "2.14"
 
-ktlint = "1.6.0"
+ktlint = "1.7.0"
 
 # for release
 

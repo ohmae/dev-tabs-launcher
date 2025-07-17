@@ -212,7 +212,11 @@ class LauncherActivity : AppCompatActivity() {
         }
         if (binding.colorSchemeParams.isChecked) {
             val scheme =
-                if (binding.colorSchemeParamsLight.isChecked) CustomTabsIntent.COLOR_SCHEME_LIGHT else CustomTabsIntent.COLOR_SCHEME_DARK
+                if (binding.colorSchemeParamsLight.isChecked) {
+                    CustomTabsIntent.COLOR_SCHEME_LIGHT
+                } else {
+                    CustomTabsIntent.COLOR_SCHEME_DARK
+                }
             val params = CustomTabColorSchemeParams.Builder().also {
                 if (binding.toolbarColorScheme.isChecked) {
                     it.setToolbarColor(toolbarColorScheme)
@@ -354,8 +358,11 @@ class LauncherActivity : AppCompatActivity() {
         toolbarColor = color
         binding.toolbarColorSample.setBackgroundColor(color)
         binding.toolbarColorDescription.text =
-            "W: " + "%.2f".format(color.contrastToWhiteForeground()) + "\n" +
-            "B: " + "%.2f".format(color.contrastToBlackForeground())
+            "W: " +
+            "%.2f".format(color.contrastToWhiteForeground()) +
+            "\n" +
+            "B: " +
+            "%.2f".format(color.contrastToBlackForeground())
     }
 
     @SuppressLint("SetTextI18n")
@@ -365,8 +372,11 @@ class LauncherActivity : AppCompatActivity() {
         toolbarColorScheme = color
         binding.toolbarColorSchemeSample.setBackgroundColor(color)
         binding.toolbarColorSchemeDescription.text =
-            "W: " + "%.2f".format(color.contrastToWhiteForeground()) + "\n" +
-            "B: " + "%.2f".format(color.contrastToBlackForeground())
+            "W: " +
+            "%.2f".format(color.contrastToWhiteForeground()) +
+            "\n" +
+            "B: " +
+            "%.2f".format(color.contrastToBlackForeground())
     }
 
     private fun mayLaunchUrl() {
