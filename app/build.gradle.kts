@@ -64,8 +64,6 @@ dependencies {
     implementation(libs.androidxRecyclerView)
     implementation(libs.material)
     implementation(libs.colorChooser)
-
-    debugImplementation(libs.leakcanary)
 }
 
 fun isStable(
