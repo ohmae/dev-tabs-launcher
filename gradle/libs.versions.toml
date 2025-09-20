@@ -10,7 +10,7 @@ androidxBrowser = "1.9.0"
 androidxConstraintLayout = "2.2.1"
 androidxRecyclerView = "1.4.0"
 material = "1.13.0"
-colorChooser = "0.7.4"
+colorChooser = "0.7.5"
 
 ktlint = "1.7.1"
 
