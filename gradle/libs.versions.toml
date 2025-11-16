@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "8.13.0"
+androidGradlePlugin = "8.13.1"
 kotlin = "2.2.21"
 gradleVersionsPlugin = "0.53.0"
 
@@ -12,7 +12,7 @@ androidxRecyclerView = "1.4.0"
 material = "1.13.0"
 colorChooser = "0.7.5"
 
-ktlint = "1.7.1"
+ktlint = "1.8.0"
 
 # for release
 
