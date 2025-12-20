@@ -1,11 +1,11 @@
 [versions]
 androidGradlePlugin = "8.13.2"
-kotlin = "2.2.21"
+kotlin = "2.3.0"
 gradleVersionsPlugin = "0.53.0"
 
 androidxCore = "1.17.0"
 androidxAppCompat = "1.7.1"
-androidxActivity = "1.12.1"
+androidxActivity = "1.12.2"
 androidxBrowser = "1.9.0"
 androidxConstraintLayout = "2.2.1"
 androidxRecyclerView = "1.4.0"
