@@ -1,11 +1,11 @@
 [versions]
-androidGradlePlugin = "9.0.0"
+androidGradlePlugin = "9.0.1"
 kotlin = "2.3.10"
 versionCatalogUpdate = "1.0.1"
 
 androidxCore = "1.17.0"
 androidxAppCompat = "1.7.1"
-androidxActivity = "1.12.3"
+androidxActivity = "1.12.4"
 androidxBrowser = "1.9.0"
 androidxConstraintLayout = "2.2.1"
 androidxRecyclerView = "1.4.0"
