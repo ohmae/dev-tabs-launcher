@@ -32,6 +32,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
 import net.mm2d.color.chooser.ColorChooserDialog
 import net.mm2d.dev.tabs.launcher.databinding.ActivityLauncherBinding
+import androidx.core.net.toUri
 
 class LauncherActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLauncherBinding
@@ -180,7 +181,7 @@ class LauncherActivity : AppCompatActivity() {
             setUpCustomTabsIntent(it)
         }.build()
         customTabsIntent.intent.setPackage(intent.getStringExtra(EXTRA_PACKAGE_NAME))
-        customTabsIntent.launchUrl(this, Uri.parse(binding.editText.text.toString()))
+        customTabsIntent.launchUrl(this, binding.editText.text.toString().toUri())
     }
 
     private fun setUpCustomTabsIntent(
@@ -381,10 +382,10 @@ class LauncherActivity : AppCompatActivity() {
 
     private fun mayLaunchUrl() {
         val urlList = listOf(SECOND_URL)
-            .map { Uri.parse(it) }
+            .map { it.toUri() }
             .map { makeOtherLikelyBundle(it) }
         CustomTabsHelper.session?.mayLaunchUrl(
-            Uri.parse(binding.editText.text.toString()),
+            binding.editText.text.toString().toUri(),
             null,
             urlList,
         )

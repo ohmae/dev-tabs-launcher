@@ -10,12 +10,12 @@ package net.mm2d.dev.tabs.launcher
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     private fun getBrowserPackages(
         pm: PackageManager,
     ): Set<String> {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com/"))
+        val intent = Intent(Intent.ACTION_VIEW, "http://www.example.com/".toUri())
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
         val flags = PackageManager.MATCH_ALL
         return pm.queryIntentActivities(intent, flags)
