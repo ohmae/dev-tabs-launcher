@@ -20,9 +20,9 @@ ktlint = "1.8.0"
 # classPath
 kotlinGradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
-androidxCore = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidxCore = { group = "androidx.core", name = "core", version.ref = "androidxCore" }
 androidxAppCompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
-androidxActivity = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
+androidxActivity = { group = "androidx.activity", name = "activity", version.ref = "androidxActivity" }
 androidxBrowser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
 androidxConstraintLayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidxConstraintLayout" }
 androidxRecyclerView = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidxRecyclerView" }
