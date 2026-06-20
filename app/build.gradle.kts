@@ -10,7 +10,9 @@ val versionMinor = 0
 val versionPatch = 7
 
 android {
-    compileSdk = 36
+    compileSdk {
+        version = release(37)
+    }
 
     namespace = "net.mm2d.dev.tabs.launcher"
     defaultConfig {
