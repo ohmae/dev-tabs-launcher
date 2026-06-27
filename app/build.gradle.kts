@@ -7,7 +7,7 @@ plugins {
 val applicationName = "dev-tabs-launcher"
 val versionMajor = 0
 val versionMinor = 0
-val versionPatch = 7
+val versionPatch = 8
 
 android {
     compileSdk {
