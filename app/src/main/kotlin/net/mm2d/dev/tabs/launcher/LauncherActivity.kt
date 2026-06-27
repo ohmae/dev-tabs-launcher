@@ -27,12 +27,12 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
 import net.mm2d.color.chooser.ColorChooserDialog
 import net.mm2d.dev.tabs.launcher.databinding.ActivityLauncherBinding
-import androidx.core.net.toUri
 
 class LauncherActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLauncherBinding
@@ -360,10 +360,10 @@ class LauncherActivity : AppCompatActivity() {
         binding.toolbarColorSample.setBackgroundColor(color)
         binding.toolbarColorDescription.text =
             "W: " +
-            "%.2f".format(color.contrastToWhiteForeground()) +
-            "\n" +
-            "B: " +
-            "%.2f".format(color.contrastToBlackForeground())
+                "%.2f".format(color.contrastToWhiteForeground()) +
+                "\n" +
+                "B: " +
+                "%.2f".format(color.contrastToBlackForeground())
     }
 
     @SuppressLint("SetTextI18n")
@@ -374,10 +374,10 @@ class LauncherActivity : AppCompatActivity() {
         binding.toolbarColorSchemeSample.setBackgroundColor(color)
         binding.toolbarColorSchemeDescription.text =
             "W: " +
-            "%.2f".format(color.contrastToWhiteForeground()) +
-            "\n" +
-            "B: " +
-            "%.2f".format(color.contrastToBlackForeground())
+                "%.2f".format(color.contrastToWhiteForeground()) +
+                "\n" +
+                "B: " +
+                "%.2f".format(color.contrastToBlackForeground())
     }
 
     private fun mayLaunchUrl() {
