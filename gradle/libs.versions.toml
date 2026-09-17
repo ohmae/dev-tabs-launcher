@@ -1,6 +1,6 @@
 [versions]
-androidGradlePlugin = "9.3.2"
-kotlin = "2.4.10"
+androidGradlePlugin = "9.4.0"
+kotlin = "2.4.20"
 versionCatalogUpdate = "1.1.1"
 
 androidxCore = "1.19.0"
