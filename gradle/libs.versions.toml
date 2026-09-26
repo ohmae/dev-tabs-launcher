@@ -3,7 +3,7 @@ androidGradlePlugin = "9.4.1"
 kotlin = "2.4.20"
 versionCatalogUpdate = "1.1.1"
 
-androidxCore = "1.19.0"
+androidxCore = "1.19.1"
 androidxAppCompat = "1.8.0"
 androidxActivity = "1.13.0"
 androidxBrowser = "1.10.0"
