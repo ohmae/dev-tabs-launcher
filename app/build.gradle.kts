@@ -11,7 +11,9 @@ val versionPatch = 8
 
 android {
     compileSdk {
-        version = release(37)
+        version = release(37) {
+            minorApiLevel = 2
+        }
     }
 
     namespace = "net.mm2d.dev.tabs.launcher"
@@ -55,7 +57,6 @@ kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_11
     }
-    jvmToolchain(21)
 }
 
 dependencies {
